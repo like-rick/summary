@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 模拟Node中的util.promisify
+
+        function promisify(fn) {
+            return function (args) {
+                return new Promise((resolve, reject) => {
+                    fn.call(this, ...args, (err, data) => {
+                        if (!err) {
+                            resolve(data);
+                        } else {
+                            reject(err);
+                        }
+                    })
+                });
+            }
+        }
+
+        function getData(file, encoding, callback) {
+
+        }
+
+        const fn = promisify(getData);
+        fn("123").then();
+
+
+    </script>
+</body>
+</html>

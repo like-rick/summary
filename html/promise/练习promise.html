@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function _Promise(executor) {
+
+            // 判断入参是否是函数类型
+            if (!(executor instanceof Function)) throw new Error('parameter must be a function');
+
+            //初始化promise内部的状态变量
+            var self = this;
+            this.status = 'pending';
+            this.onResolveCallback = [];
+            this.onRejectCallback = [];
+            this.data = undefined;
+            function resolve (value) {
+                setTimeout(() => {
+                    if (self.status == 'pending') {
+                        self.data = value;
+                        // 改变当前promise的状态
+                        self.status = 'resolve';
+                        self.onResolveCallback.forEach(elem => {
+                            elem(value);
+                        })
+                    }
+                },0);
+            }
+            function reject(reason) {
+                setTimeout(() => {
+                    if (self.status == 'pending') {
+                        self.data = reason;
+                        self.status = 'rejected'
+                        self.onRejectCallback.forEach(elem => {
+                            elem(reason);
+                        })
+                    }
+                }, 0);
+            }
+
+            try {
+                executor(resolve, reject);
+            } catch (error) {
+                throw new Error(error);
+            }
+
+        }
+        // then方法可以在promise的实例上调用，所以挂载在原型链上
+        _Promise.prototype.then = function (onResolve, onReject) {
+            var self = this;
+            var promise2 = new _Promise((resolve, reject) => {
+                if (self.status == 'pending') {
+                    queueMicrotask(() => {
+                        self.onResolveCallback.push(function (value) {
+                            try {
+                                value = onResolve(value);
+                                resolvePromise(value);
+                            } catch (error) {
+                                reject(error);
+                            }
+                        });
+                        self.onRejectCallback.push(function (reason){
+                            try {
+                                reason = onReject(reason);
+                                reject(reason);
+                            } catch (error) {
+                                reject(error);
+                            }
+                        })
+                    });
+                }
+                if (self.status == 'resolve') {
+                    queueMicrotask(() => {
+                        try {
+                            var value = onResolve(self.data);
+                            resolve(value); 
+                            resolvePromise(promise2, value, resolve, reject)
+                        } catch (error) {
+                            reject(error);   
+                        }
+                    });
+                }
+                if (self.status == 'rejected') {
+                    queueMicrotask(() => {
+                        try {
+                            var reason = onReject(self.reason);
+                            reject(reason); 
+                        } catch (error) {
+                            reject(error);   
+                        }
+                    });
+                }
+            })
+            return promise2;
+        }
+
+        function resolvePromise (promise2, x, resolve, reject) {
+            if (promise2 === x) return reject(new Error('chaining cycle detected'));
+            var called;
+            if ((typeof x === 'object' && x != null) || typeof x === 'function') {
+                try {
+                    var then = x.then;
+                    if (typeof then === 'function') {
+                        then.call(x, y => {
+                            if (called) return;
+                            called = true;
+                            resolvePromise(promise2, y, resolve, reject);
+                        }, r => {
+                            if (called) return;
+                            called = true;
+                            reject(r);
+                        }) 
+                    } else {
+                        resolve(x);
+                    }
+                } catch (error) {
+                    if (called) return;
+                    called = true;
+                    reject(error);
+                }
+            } else {
+                resolve(x);
+            }
+        }
+        
+        _Promise.resolve = function(value) {
+            let p  = new _Promise((resolve, reject) => {
+                if (value instanceof _Promise) {
+                    return value.then(resolve, reject);
+                } else {
+                    resolve(value);
+                }
+            })
+            return p;
+        }
+
+        _Promise.reject = function (reason) {
+            return new Promise((resolve, reject) => {
+                reject(reason);
+            })
+        }
+
+        _Promise.prototype.finally = function (cb) {
+            return this.then(
+                v => _Promise.resolve(cb()).then(() => v),
+                r => _Promise.resolve(cb()).then(() => { throw r })
+            )
+        }
+
+        _Promise.all = function (values) {
+            if (!(values instanceof Array)) {
+                return new Error('must be array');
+            }
+            return new _Promise((resolve, reject) => {
+                let ans = [];
+                let processAns = (value, idx) => {
+                    if (++idx == values.length) {
+                        resolve(ans);
+                    } else {
+                        ans[idx] = value;
+                    }
+                }
+                for (var i = 0; i < values.length; i++) {
+                    var curValue = values[i];
+                    if (curValue && typeof curValue.then == 'function') {
+                        curValue.then(v => {
+                            processAns(v, i);
+                        })
+                    } else {
+                        processAns(curValue, i);
+                    }
+                }
+            })
+        }
+
+        _Promise.race = function (values) {
+            return new _Promise((resolve, reject) => {
+                for (var i = 0; i < values.length; i++) {
+                    let cur = values[i];
+                    if (cur && typeof cur.then == 'function') {
+                        cur.then(resolve, reject);
+                    } else {
+                        resolve(cur);
+                    }
+                }
+            })
+        }
+
+        _Promise.retry = function(getData, times, delay) {
+            return new Promise((resolve, reject) => {
+                function attemp() {
+                    getData().then((data) => {
+                        resolve(data);
+                    }).catch((err) => {
+                        if (times === 0) {
+                            reject(err)
+                        } else {
+                            attemp();
+                        }
+                    })
+                }
+                attemp();
+            })
+        }
+
+        _Promise.resolve(5).then(v => console.log(123123))
+        // let p = new _Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve(5);
+        //     }, 0);
+        // }).finally(v => 31).then(v => console.log(v))
+        // let p = new _Promise((resolve, reject) => {
+        //     console.log('123')
+        //     // setTimeout(() => {
+        //         resolve(2)
+        //     // }, 2000);
+        //     console.log("345")
+        // })
+        // setTimeout(() => {
+        //     console.log(1);
+        // }, 0);
+        // p.then(function (data) {
+        //     console.log(data)
+        // })
+
+        // let p1 = new Promise((resolve, reject) => {
+        //     resolve(1)
+        // }).finally(function () {
+        //     console.log('finally')
+        // }).then(v => {
+        //     console.log(v)
+        // })
+
+
+    </script>
+</body>
+</html>

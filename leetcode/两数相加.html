@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val, next) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.next = (next===undefined ? null : next)
+         * }
+         */
+        /**
+         * @param {ListNode} l1
+         * @param {ListNode} l2
+         * @return {ListNode}
+         */
+        // https://leetcode-cn.com/problems/add-two-numbers/
+        var addTwoNumbers = function(l1, l2) {
+            if (!l1) return l2;
+            if (!l2) return l1;
+            let carry = 0, pre = new ListNode(-1), ans = pre;
+            while (l1 || l2 || carry) {
+                let d1 = l1 ? l1.val : 0;
+                let d2 = l2 ? l2.val : 0;
+                let total = d1 + d2 + carry;
+                let node = new ListNode(total % 10);
+                carry = Math.floor(total / 10);
+                pre.next = node;
+                pre = pre.next;
+                if (l1) l1 = l1.next;
+                if (l2) l2 = l2.next;
+            }
+            return ans.next;
+        };
+
+    </script>
+</body>
+</html>

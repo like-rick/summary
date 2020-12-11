@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function compose(...funcs) {
+            if (funcs.lenght == 0) {
+                return arg => arg;
+            }
+            if (funcs.length == 1) {
+                return funcs[0];
+            }
+            return funcs.reduce((a, b) => (...args) => a(b(...args)));
+        }
+
+        function compose1(...funcs) {
+            return function(x) {
+                return funcs.reduce((args, fn) => {
+                    return fn(args);
+                } , x)
+            }
+        }
+
+        function trim(input) {
+            return typeof input === 'string' ? input.trim() : input;
+        }
+        function lowerCase(input){
+            return typeof input === 'string' ? input.toLowerCase() : input;
+        }
+        function upperCase(input) {
+            return input && typeof input === "string" ? input.toUpperCase() : input;
+        }
+        function split(input, delimiter = ",") {
+            return typeof input === "string" ? input.split(delimiter) : input;
+        }
+
+        const composeFunc = compose(trim, lowerCase, split);
+        const result = composeFunc("A, B, C");
+    </script>
+</body>
+</html>
