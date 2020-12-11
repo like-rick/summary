@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let arr = [3, 1], temp = [];
+        sort(arr, 0, arr.length - 1,);
+        console.log(arr)
+        function sort(arr, low, high) {
+            let temp = [];
+            if (low < high) {
+                let mid = Math.floor((high + low) / 2);
+                sort(arr, low, mid);
+                sort(arr, mid + 1, high);
+                mergeSort(arr, low, mid, high, temp);
+            }
+        }
+        function mergeSort(arr, low, mid, high, temp) {
+            let i = low,
+                j = mid + 1,
+                k = 0;
+            while (i <= mid && j <= high) {
+                if (arr[i] < arr[j]) {
+                    temp[k++] = arr[i++];
+                } else {
+                    temp[k++] = arr[j++];
+                }
+            }
+            while (i <= mid) {
+                temp[k++] = arr[i++];
+            }
+            while (j <= high) {
+                temp[k++] = arr[j++]
+            }
+            for (i = 0; i < k; i++) {
+                arr[low + i] = temp[i]
+            }
+        }
+
+    </script>
+</body>
+</html>

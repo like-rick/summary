@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://leetcode-cn.com/problems/combination-sum-iii/
+        // 找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+        /**
+         * @param {number} k
+         * @param {number} n
+         * @return {number[][]}
+         */
+
+        //输入: k = 3, n = 7
+        // 输出: [[1,2,4]]
+        var combinationSum3 = function(k, n) {
+            let ans = [];
+            find(1, n, [], 0);
+            return ans;
+            function find(start, n, selectArray) {
+                let curSum = selectArray.reduce((accumulator, curVal) => {
+                    return curVal + accumulator;
+                }, 0)
+                if (selectArray.length == k && curSum == n) {
+                    ans.push([...selectArray]);
+                    return;
+                } else {
+                    for (let i = start; i <= 9; i++) {
+                        if (curSum  < n) {
+                            selectArray.push(i);
+                            find(i + 1, n, selectArray);
+                            selectArray.pop();
+                        }
+                    }
+                }
+            }
+        };
+        console.log(combinationSum3(3,8))
+    </script>
+</body>
+</html>

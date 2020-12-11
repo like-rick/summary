@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val) {
+         *     this.val = val;
+         *     this.next = null;
+         * }
+         */
+
+        /**
+         * @param {ListNode} head
+         * @return {ListNode}
+         */
+        var detectCycle = function(head) {
+            if (!head || !head.next) return new ListNode(-1);
+            let arr = new Map;
+            while (head) {
+                let val = head.val;
+                if (arr.has(val)) {
+                    return arr.get(val);
+                }
+                arr.set(val, head);
+                head = head.next;
+            }
+            return new ListNode(-1);
+        };
+        // https://leetcode-cn.com/problems/linked-list-cycle-lcci/solution/kuai-man-zhi-zhen-zheng-ming-bi-jiao-yan-jin-by-ch/
+        function detectCycle(head) {
+            if (!head || !head.next) return head;
+            let fast = head, slow = head;
+            while (fast && fast.next) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                    fast = head;
+                    while (fast != slow) {
+                        slow = slow.next;
+                        fast = fast.next;
+                    }
+                    return fast;
+                }
+            }
+            return null;
+        }
+        console.log(detectCycle(a));
+    </script> 
+</body>
+</html>

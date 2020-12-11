@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        function _Promise(executor){
+
+            if (!(executor instanceof Function)) return new TypeError('must be function');
+
+            this.status = 'pending';
+            this.data = undefined;
+            this.onResolveCallback = [];
+            this.onRejectCallback = [];
+
+            function resolve(value) {
+                if (this.status == 'pending') {
+                    this.status = 'fulfilled';
+                    this.data = value;
+                    this.onResolveCallback.forEach(elem => {
+                        elem(value);
+                    });
+                }
+            }
+            function reject(reason) {
+                if (this.status == 'pending') {
+                    this.status = 'rejected';
+                    this.data = reason;
+                    this.onRejectCallback.forEach(elem => {
+                        elem(reason);
+                    });
+                }
+            }
+            try {
+                executor(resolve, reject);
+            } catch (error) {
+                throw new Error(error);
+            }
+        }
+        _Promise.prototype.then = function (onResolve, onReject) {
+            onResolve = typeof onResolve === 'function' ? onResolve : v => v;
+            onReject = typeof onReject === 'function' ? onReject : v => v;
+            var self = this;
+            var p2 = new _Promise((resolve, reject) => {
+                if (self.status == 'fulfilled') {
+                    queueMicrotask(() => {
+                        try {
+                            var x = onResolve(self.data);
+                            resolvePromise(p2, x, resolve, reject);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    })
+                }
+                if (self.status == 'rejected'){
+                    queueMicrotask(() => {
+                        try {
+                            var x = onReject(self.data);
+                            reject(x);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    })
+                }
+                if (self.status == 'pending') {
+                    self.onRejectCallback.push((data) => {
+                        try {
+                            var x = onResolve(data);
+                            resolvePromise(p2, x, resolve, reject);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    })
+                    self.onRejectCallback.push(data => {
+                        try {
+                            var x = onReject(data);
+                            reject(x);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    })
+                }
+            })
+            return p2;
+        }
+
+        function resolvePromise(p2, x, resolve, reject) {
+            if (p2 === x) return new Error("chain cycle");
+            var called = false, then = x.then;
+            if (typeof x === 'object' && x !== null || typeof then == 'function') {
+                try {
+                    if (typeof then == 'function'){
+                        then(x, y => {
+                            if (called) return;
+                            called = true;
+                            resolvePromise(p2, y, resolve, reject);
+                        }, r => {
+                            if (called) return;
+                            called = true;
+                            reject(r);
+                        })
+                    } else {
+                        resolve(x);
+                    }
+                } catch (error) {
+                    resolve(error);
+                }
+            } else {
+                resolve(x);
+            }
+        }
+
+        _Promise.resolve = function (x) {
+            return new _Promise((resolve, reject) => {
+                if (typeof x.then == 'function' ) {
+                    x.then(resolve, reject);
+                } else {
+                    if (this.status == 'pending'){
+                        this.status = 'fulfilled';
+                        this.data = x;
+                        this.onResolveCallback.forEach(fn => fn(x));
+                    }
+                }
+            })
+        }
+        _Promise.reject = function (x) {
+            return new _Promise((resolve, reject) => {
+                reject(x);
+            })
+        }
+
+        _Promise.all = function (promises) {
+            if (!(promises instanceof Array)) return new Error("must be array");
+            return new Promise((resolve, reject) => {
+                var ans = [];
+                for (var i = 0; i < promises.length; i++) {
+                    var cur = promises[i];
+                    if (cur && typeof cur.then == 'function'){
+                        cur.then(x => processAns(x, i));
+                    } else {
+                        processAns(cur, i)
+                    }
+                }
+                function processAns(value, idx) {
+                    ans[idx] = value;
+                    if (++idx == promises.length) {
+                        return resolve(ans);
+                    }
+                }
+            })
+
+        }
+
+        _Promise.retry = function (getData, times, relay) {
+            return new _Promise((resolve, reject) => {
+                function attemp() {
+                    getData.then(x => {
+                        resolve(x);
+                    }, r => {
+                        if (--times == 0) {
+                            reject(r);
+                        } else {
+                            attemp();
+                        }
+                    })
+                }
+                attemp();
+            })
+        }
+
+        _Promise.race = function (promises) {
+            return new _Promise((resolve, reject) => {
+                for (var i = 0; i < values.length; i++) {
+                    let cur = values[i];
+                    if (cur && typeof cur.then == 'function') {
+                        cur.then(resolve, reject);
+                    } else {
+                        resolve(cur);
+                    }
+                }
+            })
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val) {
+         *     this.val = val;
+         *     this.next = null;
+         * }
+         */
+        /**
+         * @param {ListNode} head
+         * @param {number[]} G
+         * @return {number}
+         */
+        // https://leetcode-cn.com/problems/linked-list-components/
+        var numComponents = function(head, G) {
+            if (!head || G.length == 0) return 0;
+            let result = 0;
+            while (head) {
+                if (G.indexOf(head.val) != -1) {
+                    while (head.next && G.indexOf(head.next.val) != -1) {
+                        head = head.next;
+                    }
+                    result++;
+                }
+                head = head.next;
+            }
+            return result;
+        };
+
+    </script>
+</body>
+</html>
