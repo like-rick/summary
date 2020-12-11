@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://leetcode-cn.com/problems/palindrome-partitioning/
+        //给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。
+        // 返回 s 所有可能的分割方案。
+        /**
+        * @param {string} s
+        * @return {string[][]}
+        */
+        /*
+            输入: "aab"
+            输出:
+            [
+            ["aa","b"],
+            ["a","a","b"]
+            ]
+        */
+        var partition = function(s) {
+            let ans = [];
+            find(0, [], s);
+            function find(start, selectArr, s) {
+                if (start == s.length) {
+                    ans.push([...selectArr]);
+                    return;
+                } else {
+                    for (let i = start; i < s.length; i++) {
+                        let s1 = s.slice(start, i + 1);
+                        find()
+                    }
+                }
+            }
+            function isValid(arr) {
+                let reverse = arr.reverse();
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] != reverse[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return ans;
+        };
+
+
+
+    </script>
+</body>
+</html>

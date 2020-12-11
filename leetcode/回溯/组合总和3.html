@@ -30,11 +30,9 @@
                     return;
                 } else {
                     for (let i = start; i <= 9; i++) {
-                        if (curSum  < n) {
-                            selectArray.push(i);
-                            find(i + 1, n, selectArray);
-                            selectArray.pop();
-                        }
+                        selectArray.push(i);
+                        find(i + 1, n, selectArray);
+                        selectArray.pop();
                     }
                 }
             }
