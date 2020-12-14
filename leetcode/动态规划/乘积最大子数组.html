@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://leetcode-cn.com/problems/maximum-product-subarray/
+
+        /**
+        * @param {number[]} nums
+        * @return {number}
+        */
+        //给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+        // 输入: [2,3,-2,4]
+        // 输出: 6
+        // 解释: 子数组 [2,3] 有最大乘积 6。
+        var maxProduct = function(nums) {
+            // max[i]表示以i下标结尾的最大的连续子数组的乘积
+            // min[i]表示以i下标结尾的最小连续子数组的乘积
+            let len = nums.length,
+                max = new Array(len),
+                min = new Array(len);
+            max[0] = nums[0];
+            min[0] = nums[0];
+            for (let i = 1; i < nums.length; i++) {
+                max[i] = Math.max(max[i - 1] * nums[i], nums[i], min[i - 1] * nums[i]);
+                min[i] = Math.min(max[i - 1] * nums[i], nums[i], min[i - 1] * nums[i]);
+            }
+            return Math.max(...max);
+        };
+
+        console.log(maxProduct([2,3,-2,4]))
+
+
+    </script>
+</body>
+</html>

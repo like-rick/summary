@@ -149,6 +149,7 @@
         };
         return enqueue().then(() => Promise.all(ret));
     }
+    
     function request (urls, maxNumber) { 
         var asyncList = [] 
         var urlsList = urls.slice() 
