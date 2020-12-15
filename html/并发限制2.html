@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 第 153 题：实现一个批量请求函数 multiRequest(urls, maxNum)
+    // http://js.jsrun.net/SYLKp/edit
+    const req = (url) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(url)
+            }, 1000);
+            // const xhr = new XMLHttpRequest();
+            // xhr.open('get', url, true); //这里第三个参数不能为false,会变成同步
+            // xhr.onload = () => {
+            //     if (xhr.status === 200) {
+            //         resolve(url)
+            //     } else {
+            //         reject(url)
+            //     }
+            // }
+            // xhr.send();
+        })
+    }
+
+    const multiRequest = (urls, maxNum) => {
+        let doing = 0;
+        const ans = [];
+        const queue = [];
+        const enQueue = () => {
+            if (doing == urls.length) {
+                return Promise.resolve();
+            }
+            const p = Promise.resolve().then(() => req(url[doing++]));
+            ret.push(p);
+            const e = Promise.resolve().then(() => queue.splice(e, 1));
+            queue.push(e);
+            let r = Promise.resolve();
+            if (queue.length >= maxNum) {
+                r = Promise.race(queue);
+            }
+            return r.then(() => enQueue());
+        }
+        return enQueue().then(() => Promise.all(ans));
+    }
+
+
+    </script>
+</body>
+</html>

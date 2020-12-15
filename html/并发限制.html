@@ -96,6 +96,8 @@
             run();
         })
     }
+
+    // https://developer.aliyun.com/ask/288740
     function handleFetchQueue(urls, max, callback) {
         const urlCount = urls.length;
         const requestsQueue = [];
@@ -116,7 +118,7 @@
                 requestsQueue.shift();
                 handleRequest(urls[++i]);
                 } else if (len === urlCount) {
-                "function" === typeof callback && callback(results);
+                    "function" === typeof callback && callback(results);
                 }
             });
             requestsQueue.push(req);
@@ -149,7 +151,7 @@
         };
         return enqueue().then(() => Promise.all(ret));
     }
-    
+
     function request (urls, maxNumber) { 
         var asyncList = [] 
         var urlsList = urls.slice() 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://www.cnblogs.com/ranyonsue/p/11201730.html
+        // 原型继承
+        function Parent(name) {
+            this.name = name;
+        }
+        Parent.prototype.age = 1;
+        function Child1(name) {
+            this.name = name;
+        }
+
+        Child1.prototype = new Parent();
+        var c1 = new Child1('xiaohei');
+        console.log(c1 instanceof Parent)
+        // 特点：
+        // 实例可以继承的属性有：父类的构造函数的属性，父类的原型的属性，子类的构造函数，子类的原型的属性
+        // 缺点：
+        // 1. 子类无法向父类传参
+        // 2. 所有子类实例都会共享父类的实例的属性，一个修改了，另一个也修改了
+        // 3. 继承单一
+
+        // 借用构造函数继承
+        function Child2(name) {
+            Parent.call(this, 'jer');
+            this.age = 12;
+        }
+        // let c2 = new Child2();
+        // 特点:
+        // 1. 只继承了父类的构造函数，没有继承原型链上的属性
+        // 2. 解决了原型链继承的缺点
+        // 3. 可以继承多个
+        // 缺点：
+        // 1. 无法继承父类构造函数的属性
+        // 2. 每次新建实例都会备份一个父类
+
+
+        // 组合继承
+        function Child3(name) {
+            Parent.call(this, name);
+        }
+        Child3.prototype = new Parent();
+        // 特点：
+        // 1. 可以继承父类的原型属性，可传参
+        // 2. 每个子类的实例引入的父类的实例属性都是私有的
+        // 缺点：
+        // 调用了两次构造函数
+
+
+        // 寄生继承
+        // 使用object.create的继承
+        function Child4(name) {
+            Parent.call(this);
+        }
+        Child4.prototype = Object.create(Parent.prototype);
+        // 弥补因为prototype重新指向出现的构造函数缺失问题
+        Child4.prototype.constructor = Child4;
+
+    </script>
+</body>
+</html>

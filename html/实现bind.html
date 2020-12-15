@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // bind并不是立即执行函数，而是有一个延迟执行的操作，就是生成了一个新的函数，需要你去执行它
+        Function.prototype.myBind = function (ctx, ...args) {
+            return (...newArgs) => {
+                // 注意...args和...newArgs的顺序
+                this.call(ctx,  ...args, ...newArgs,);
+            }
+        }
+        let obj = {
+            name: 'xiaohei',
+            age: 18,
+        }
+        function log(sex) {
+            console.log(this.name);
+            console.log(this.age);
+            console.log(sex)
+        }
+        let exec = log.bind(obj, 'nv');
+        let exec1 = log.myBind(obj, 'nv');
+        exec('nan');
+        exec1('nan');
+    </script>
+</body>
+</html>

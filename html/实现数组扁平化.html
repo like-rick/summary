@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let arr = [[1,2,[3,4,[5,6]]]]
+        // arr.flat(2);
+        // console.log(arr)
+        console.log(Array.prototype.flat.call(arr, Infinity));
+        // Array.prototype.flat(arr, Infinity);
+        // var arr1 = [1, 2, [3, 4]];
+        // console.log(arr.flat(Infinity)); 
+
+        // 利用reduce、concat和递归的表达实现数组扁平化
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat
+        function myFlat(arr, d) {
+            return d > 0 ? arr.reduce((accumulator, curVal) => {
+                return accumulator.concat(Array.isArray(curVal) ? myFlat(curVal, d - 1) : curVal)
+            }, []) : arr.slice();
+        }
+        console.log(myFlat(arr, Infinity))
+
+
+        //利用栈
+        function myFlat1(arr) {
+            const stack = [...arr];
+            const ans = [];
+            while (stack.length) {
+                const cur = stack.pop();
+                if (Array.isArray(cur)) {
+                    stack.push(...cur);
+                } else {
+                    ans.push(cur);
+                }
+            }
+            return ans.reverse();
+        }
+    </script>
+</body>
+</html>

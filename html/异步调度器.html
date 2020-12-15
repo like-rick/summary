@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    /**  * JS实现一个带并发控制的异步调度器，保证同时运动的任务最多有两个，完善下面代码 */
+    // class Scheduler {  add (promiseCreator) { /*...*/} }
+        
+    class Scheduler {
+        constructor(limit = 2) {
+            this.limit = limit;
+            this.doing = 0;
+            this.queue = [];
+        }
+        add(promiseCreator) {
+            if (this.doing < this.limit) {
+                this.doing++;
+                return promiseCreator().then(() => {
+                    this.doing--;
+                    this.next();
+                })
+            } else {
+                return new Promise((resolve, reject) => {
+                    this.queue.push(() => {
+                        promiseCreator().then(() => {
+                            resolve();
+                            this.doing--;
+                            this.next();
+                        })
+                    })
+                })
+            }
+        }
+        next() {
+            if (this.doing < this.limit && this.queue.length > 0) {
+                let p = this.queue.shift();
+                this.doing++;
+                p();
+            }
+        }
+    }
+    const timeout = (time) => new Promise(resolve => setTimeout(resolve, time))
+    const scheduler = new Scheduler()
+    const addTask = (time, order) => {  scheduler.add(()=> timeout(time)).then(() => console.log(order))}
+    addTask(1000,1)
+    addTask(500,2)
+    addTask(300,3)
+    addTask(400,4)
+
+    </script>
+</body>
+</html>

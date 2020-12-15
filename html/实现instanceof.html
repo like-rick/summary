@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 「instanceof」 「运算符」用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+        function myInstanceOf(left, right) {
+            if (typeof left !== 'object' || left === null) return false;
+            let rightProto = right.prototype,
+                leftProto = left.__proto__;
+            while (true) {
+                if (leftProto === null) {
+                    return false;
+                }
+                if (leftProto === rightProto) {
+                    return true;
+                }
+                leftProto = leftProto.__proto__;
+            }
+        }
+
+
+    </script>
+</body>
+</html>

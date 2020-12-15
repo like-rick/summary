@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function log(sex) {
+            console.log(this.name);
+            console.log(this.age);
+            console.log(sex);
+        }
+
+        let obj = {
+            name: 'xiaohei',
+            age: '123',
+        }
+
+        // log.call(obj, 'nan');
+        // 给传进来的上下文(ctx)，增加一个新的属性，这个属性(fn)指向等待被call的函数，
+        // 根据函数调用的时候，函数的this是调用者本身这条性质，就可以把函数的thi改变为ctx，因为掉用的是ctx[fn]
+        // 最后在删除ctx上的fn属性
+        // call和apply的实现本质是一样的，只是传入函数的形式不一样，apply是数组形式，call是数组展开形式
+        Function.prototype.myCall = function () {
+            let [thisArg, ...args] = [...arguments];
+            thisArg = Object(thisArg) || window;
+            let fn = Symbol();
+            thisArg[fn] = this;
+            let result = thisArg[fn](...args);
+            console.log(result)
+            delete thisArg[fn];
+            return result;
+        }
+
+        Function.prototype.myApply = function () {
+            let [thisArg, args] = [...arguments];
+            thisArg = Object(thisArg) || window;
+            let fn = Symbol();
+            thisArg[fn] = this;
+            let result = thisArg[fn](...args);
+            delete thisArg[fn];
+            return result;
+        }
+        log.myCall(obj, 'nan')
+
+    </script>
+</body>
+</html>
