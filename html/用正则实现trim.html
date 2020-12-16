@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        String.prototype.trim = function () {
+            return this.replace(/^\s+|\s+$/g, '');
+        }
+        // 数字转换千分位
+        function thousandth(str) {
+            return str.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,');
+        }
+    </script>
+</body>
+</html>

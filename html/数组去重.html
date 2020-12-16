@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let arr = [1, 1, '1', '1', null, null, 
+                undefined, undefined, 
+                new String('1'), new String('1'), 
+                /a/, /a/,
+                NaN, NaN
+            ];
+        
+        function method1(arr) {
+            return [...new Set(arr)];
+        }
+
+        function method2(arr) {
+            return arr.filter((item, idx, arr) => {
+                return arr.indexOf(item) === idx;
+            })
+        }
+
+        function method3(arr) {
+            return arr.reduce((accumulator, curVal) => {
+                return accumulator.includes(curVal) ? accumulator : [...accumulator, curVal];
+            }, [])
+        }
+
+    </script>
+</body>
+</html>

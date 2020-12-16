@@ -7,8 +7,36 @@
 </head>
 <body>
     <script>
+        // 防抖
+        // 防抖函数 debounce 指的是某个函数在某段时间内，无论触发了多少次回调，
+        // 都只执行最后一次。假如我们设置了一个等待时间 3 秒的函数，在这 3 秒内如果遇到函数调用请求就重新计时 3 秒，
+        // 直至新的 3 秒内没有函数调用请求，此时执行函数，不然就以此类推重新计时。
+        function debounce(fn, wait, immediate) {
+            let timer = null;
+            return function (...args) {
+                if (timer) clearTimeout(timer);
+                if (immediate && !timer) {
+                    fn.apply(this, args);
+                }
+                timer = setTimeout(() => {
+                    fn.apply(this, args)
+                }, wait);
+            }
+        }
+        // 节流
+        // 函数节流指的是某个函数在一定时间间隔内（例如 3 秒）只执行一次，在这 3 秒内 无视后来产生的函数调用请求，
+        // 也不会延长时间间隔。3 秒间隔结束后第一次遇到新的函数调用会触发执行，然后在这新的 3 秒内依旧无视后来产生的函数调用请求，以此类推。
 
-        
+        function throttle(fn, wait) {
+            let pre = 0;
+            return function (...args) {
+                let now = +new Date();
+                if (now - pre > wait) {
+                    pre = now;
+                    fn.apply(this, args);
+                }
+            }
+        }
 
     </script>
 </body>

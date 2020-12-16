@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/
+        // 输入两个链表，找出它们的第一个公共节点。
+
+        /**
+        * Definition for singly-linked list.
+        * function ListNode(val) {
+        *     this.val = val;
+        *     this.next = null;
+        * }
+        */
+
+        /**
+        * @param {ListNode} headA
+        * @param {ListNode} headB
+        * @return {ListNode}
+        */
+        var getIntersectionNode = function(headA, headB) {
+            let l1 = headA, l2 = headB;
+            while (l1 != l2) {
+                l1 = l1 == null ? headB : l1.next;
+                l2 = l2 == null ? headA : l2.next;
+            }
+            return l1;
+        };
+
+    </script>
+</body>
+</html>

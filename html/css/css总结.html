@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    a{
+        overflow: hidden;
+    }
+</style>
+<body>
+    1. BFC布局
+        BFC块级格式化上下文，形成一个容器，容器内的元素在布局上不会影响容器外的元素，也不会被容器外的元素影响
+        BFC解决的问题：
+            // https://juejin.cn/post/6844903780253696013
+            1. 解决普通文档流块元素的外边距折叠问题
+            2. 清楚浮动，高度坍塌
+            3. 阻止普通文档流元素被浮动元素覆盖
+            4. 自适应两栏布局
+        如何触发BFC：
+            1. 根元素
+            2. float: left / right
+            3. position: absolute / fixed
+            4. display: inline-block / flex / grid
+            5. overflow: hidden
+    2. 如何解决a标签点击后hover时间失效的问题
+            a:link：简写 a，未访问的样式
+            a:visited：已经访问的样式
+            a:hover：鼠标移上去时的样式
+            a:active：鼠标按下的样式
+        在 CSS 中，如果对于相同元素针对不同条件的定义，适宜将最一般的条件放在最上面，
+        依次向下，保证最下面的是最特殊的条件（可以理解为样式覆盖）
+    3. 响应式
+        通过媒体查询(@media)检测不同的设备屏幕尺寸，然后分别处理
+        屏幕尺寸改变的时候，直接操作css就能更新视图，不需要操作dom
+    4. 脱离文档流
+        文档流：将窗体自上而下分成一行一行，并在每行中按照从左到右依次排列元素，成为文档流，也就是普通流
+        脱离文档流：脱离文档流将不再占据空间，而是飘浮在文档流上面
+        float: left/right：使用之后会脱离，但是其他盒子会环绕该元素的周围。
+        position: absolute/fixed：
+        absolute 为绝对定位，脱离文档流之后还是会相对于该元素的父类（做了 relative/absolute 定位的父类）进行偏移。
+        而 fixed 就是完全脱离文档流，相对于 HTML （整个浏览器窗口）的形式展示。
+    5.盒模型
+        box-sizing: content-box。标准盒子，总宽度等于width + padding + border + margin
+        box-sizing: border-box。 怪异盒子，总宽度等于width + margin，其中width中包含了width，padding，border
+    6. link和@import
+        link 是 XHTML 标签，除了加载 CSS 外，还可以定义 RSS 等其他事务；@import 属于 CSS 范畴，只能加载 CSS。
+        link 引用 CSS 时，在页面载入时同时加载；@import 需要页面网页完全载入以后加载。
+        link 是 XHTML 标签，无兼容问题；@import 是在 CSS2.1 提出的，低版本的浏览器不支持。
+        link 支持使用 Javascript 控制 DOM 去改变样式；而 @import 不支持。
+    7. 垂直居中
+        1. 不知道元素的宽高：
+            {
+                position: absolute,
+                left: 50%,
+                top: 50%,
+                transform: translate(-50%, -50%)
+            }
+            {
+                display: flex,
+                justity-content: center,
+                align-items: center,
+            }
+    8.  CSS单位
+        px: 是网页设计常用的基本基本单位，它是相对于显示器屏幕分辨率而言的。
+        em: 是相对长度单位，相对于对象内文本的字体尺寸（参考物是父元素的 font-size。如果当前父元素的字体元素未设置，则相对于浏览器的默认字体尺寸设置。
+        rem: 是相对于 HTML 根元素的字体大小（font-size）来计算的长度单位。
+        vw/vh: vw 和 vh 是相对于 viewport - 相对视口的宽度或者高度而定的。一般来说：1vw = npx / 100，即浏览器宽度为 200px 的时候，1vw = 200px / 100，即 1vw = 2px
+    9.  CSS 设置隐藏元素
+        display: none：彻底消失，会导致浏览器回流和重绘，不能再触发点击事件。
+        visibility: hidden：元素隐藏，空间仍保留，会导致重绘，但是不能再触发点击事件。
+        opacity: 0：设置为透明，相当于它还在那里，但是你看不到，可以触发点击事件。
+    10. position
+        static：默认位置。不需要特别声明，不常用。
+        relative：相对定位。相对于元素默认的位置进行定位，设置 top/left/right/bottom 后的元素仍占据空间。
+        absolute：绝对定位。如果父元素设置了 position: absolute/relative，那么这个设置成立。它会根据上一个设置了 absolute/relative 的元素进行偏移。
+        fixed：固定定位。相对于整个浏览器窗口进行定位，无论页面怎么滚动。
+    11. css优化
+        避免过度约束
+        避免后代选择符
+        避免链式选择符
+        使用紧凑的语法
+        避免不必要的命名空间
+        避免不必要的重复
+        最好使用表示语义的名字。一个好的类名应该是描述他是什么而不是像什么
+        避免 !important，可以选择其他选择器
+        尽可能的精简规则，你可以合并不同类里的重复规则
+    12. CSS匹配规则
+        CSS 选择器的解析是从右向左解析的。
+        若从左向右的匹配，发现不符合规则，需要进行回溯，会损失很多性能。
+        若从右向左匹配，先找到所有的最右节点，对于每一个节点，向上寻找其父节点直到找到根元素或满足条件的匹配规则，则结束这个分支的遍历。
+        两种匹配规则的性能差别很大，是因为从右向左的匹配在第一步就筛选掉了大量的不符合条件的最右节点（叶子节点），而从左向右的匹配规则的性能都浪费在了失败的查找上面。
+    13. 1px的实现
+        产生的原因：
+        根本原因是 750px 的设计稿上是 UI 设计师期待的 1px 物理像素，它对应实际 375px 稿子上的 0.5px 设备独立像素。
+        而 0.5px 设备独立像素对于 IOS-8 支持，对于安卓不支持。
+        所以安卓会将 0.5px 的设备独立像素渲染成 1px 的设备独立像素，
+        也就是说，安卓在 375px 稿子上的设备独立像素为 1px 时，占 2px 物理像素，更粗。
+        所以我们拿到设计稿，要按照像素比 dpr 换算，每次量的单位 = 单位 / dpr，比如 dpr 为 2 的时候，1px 转换为 CSS 以后就是 0.5px。
+        （我们看的页面效果是按以物理像素来说，这才是问题的关键）
+        解决办法：
+        1. 利用 ::after + transform
+        div::after {
+            display: block;
+            content: '';
+            border: 1px solid #ccc;
+            transform: scaleY(0.5);
+        }
+        2. 利用 box-shadow
+        div: {
+            box-shadow: 0 0.5px 0 0 #fff;
+        }
+    
+</body>
+</html>
