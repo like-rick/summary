@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/two-sum/
+
+
+        /**
+        * @param {number[]} nums
+        * @param {number} target
+        * @return {number[]}
+        */
+        var twoSum = function(nums, target) {
+            if (nums.length < 2) return [];
+            let m = {};
+            nums.forEach((elem, idx) => {
+                m[elem] = idx;
+            });
+            for (let i = 0; i < nums.length; i++) {
+                let cur = (target - nums[i]).toString();
+                if (m.hasOwnProperty(cur) && i != m[cur]) {
+                    return [i, m[cur]];
+                }
+            } 
+            return [];
+        };
+        console.log(twoSum([3,2,4], 6))
+    </script>
+</body>
+</html>

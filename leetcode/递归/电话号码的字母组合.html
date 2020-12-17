@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
+        /**
+        * @param {string} digits
+        * @return {string[]}
+        */
+        // 递归
+        var letterCombinations = function(digits) {
+            if (digits.length == 0) return [];
+            let map = {
+               '2': ['a', 'b', 'c'],
+               '3': ['d', 'e', 'f'],
+               '4': ['g', 'h', 'i'],
+               '5': ['j', 'k', 'l'],
+               '6': ['m', 'n', 'o'],
+               '7': ['p', 'q', 'r', 's'],
+               '8': ['t', 'u', 'v'],
+               '9': ['w', 'x', 'y', 'z']
+            }
+            let ans = [];
+            getResult(digits, "");
+            return ans;
+            function getResult(digits, res) {
+                if (digits.length == 0) {
+                    ans.push(res);
+                    return;
+                } else {
+                    let curNumber = digits[0], curArr = map[curNumber];
+                    for (let i = 0; i < curArr.length; i++) {
+                        getResult(digits.slice(1), res + curArr[i])
+                    }
+                }
+            }
+        };
+        // 回溯
+        var letterCombinations = function (digits) {
+            let map = {
+               '2': ['a', 'b', 'c'],
+               '3': ['d', 'e', 'f'],
+               '4': ['g', 'h', 'i'],
+               '5': ['j', 'k', 'l'],
+               '6': ['m', 'n', 'o'],
+               '7': ['p', 'q', 'r', 's'],
+               '8': ['t', 'u', 'v'],
+               '9': ['w', 'x', 'y', 'z']
+            };
+            let ans = [];
+            helper(0, digits, "");
+            return ans;
+            function helper(i, digits, res) {
+                if (res.length == digits.length) {
+                    ans.push(res);
+                    return;
+                } else {
+                    let curArr = map[digits.slice(i, i + 1)];
+                    for (let j = 0; j < curArr.length; j++) {
+                        if (res.length < digits.length) {
+                            let n = res + curArr[j];
+                            helper(i + 1, digits, n);
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
