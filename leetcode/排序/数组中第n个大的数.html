@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        // https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+
+        /**
+        * @param {number[]} nums
+        * @param {number} k
+        * @return {number}
+        */
+        var findKthLargest = function(nums, k) {
+            let low = 0, high = nums.length - 1, arr = nums;
+            while (true) {
+                let idx = find(nums, low, high);
+                if (idx == (k - 1)) return nums[idx];
+                else if (idx < k) low = idx + 1;
+                else high = idx - 1;
+            }
+        };
+        function find(arr, low, high) {
+            let v = arr[low];
+            while (low < high) {
+                while (low < high && arr[high] <= v) high--;
+                arr[low] = arr[high];
+                while (low < high && arr[low] >= v) low++;
+                arr[high] = arr[low];
+            }
+            arr[low] = v;
+            return low;
+        }
+        console.log(findKthLargest([3,2,1,5,6,4], 2))
+    </script>
+</body>
+</html>

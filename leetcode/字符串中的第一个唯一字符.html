@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 字符串中的第一个唯一字符
+        // https://leetcode-cn.com/problems/first-unique-character-in-a-string/
+        /**
+        * @param {string} s
+        * @return {number}
+        */
+        var firstUniqChar = function(s) {
+            let map = {};
+            for(let j = 0; j < s.length; j++) {
+                if (map.hasOwnProperty(s[j])) {
+                    map[s[j]]++;
+                } else {
+                    map[s[j]] = 1;
+                }
+            }
+            for (let i = 0; i < s.length; i++) {
+                if (map[s[i]] == 1) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+        console.log(firstUniqChar("leetcode"))
+    </script>
+</body>
+</html>

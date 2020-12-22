@@ -20,10 +20,6 @@ const util = require('util');
  * 
  */
 
-
-
-
-
 class JSONLineReader extends stream.Readable {
   constructor(source) {
     super();
