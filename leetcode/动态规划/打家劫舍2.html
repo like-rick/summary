@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // https://leetcode-cn.com/problems/house-robber-ii/
+        // 和打家劫舍问题对比，核心问题是第一个房间和最后一个房间不能同时偷
+        // 考虑把环拆成两个队列，一个从0到n-1，一个从1到n。然后返回结果最大的
+        /**
+        * @param {number[]} nums
+        * @return {number}
+        */
+        var rob = function(nums) {
+            // dp1[i]表示从 0 到 n-1
+            // dp2[i]表示从 1 到 n
+            let len = nums.length, dp1 = new Array(len - 1).fill(0), dp2 = new Array(len - 1).fill(0);
+            dp1[0] = nums[0];
+            dp1[1] = Math.max(nums[0], nums[1]);
+            for (let i = 2; i < len - 1; i++) {
+                dp1[i] = Math.max(dp1[i-1], nums[i] + dp1[i-2]);
+            }
+            dp2[0] = nums[1];
+            dp2[1] = Math.max(nums[1], nums[2]);
+            for (let j = 3; j < len; j++) {
+                dp2[j] = Math.max(dp[j-2] + nums[j], dp[j-1]);
+            }
+            return Math.max(dp2[len - 2], dp1[len - 2]);
+        };
+
+        console.log(rob([2,3,2]))
+    </script>
+</body>
+</html>

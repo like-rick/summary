@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/house-robber-iii/
+        // 
+
+        /**
+        * Definition for a binary tree node.
+        * function TreeNode(val) {
+        *     this.val = val;
+        *     this.left = this.right = null;
+        * }
+        */
+        /**
+        * @param {TreeNode} root
+        * @return {number}
+        */
+        var rob = function(root) {
+            return Math.max(...helper(root));
+        };
+        function helper(root) {
+            // dp[i] i => 0 表示不偷取当前节点的最大收益， i => 1 表示偷取当前节点的最大收益
+            if (!root) return [0, 0];
+            let left = helper(root.left);
+            let right = helper(root.right);
+            let dp = new Array(2).fill(0);
+            dp[0] = Math.max(...left) + Math.max(...right);
+            dp[1] = root.val + left[0] + right[0];
+            return dp;
+        }
+
+
+    </script>
+</body>
+</html>
