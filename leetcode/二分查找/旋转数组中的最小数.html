@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?tpId=13&&tqId=11159&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 旋转数组中的最小数
+        // 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+        // 输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+        // NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+        // [3,4,5,1,2]
+        // 1
+        function minNumberInRotateArray(arr){
+            let low = 0, high = arr.length - 1;
+            while(low <= high) {
+                let mid = Math.floor((high + low) / 2);
+                if (arr[mid] < arr[high]) {
+                    high = mid;
+                } else if (arr[mid] == arr[high]) {
+                    high = high - 1;
+                } else {
+                    low = mid + 1;
+                }
+            }
+            return arr[low]
+        }
+        // console.log(minNumberInRotateArray([7,8,9,10,11,12,1,2,3,4,5,6]))
+        // console.log(minNumberInRotateArray([5,1,2,3,4]))
+        // console.log(minNumberInRotateArray([2,3,4,5,1]))
+
+        console.log(Fibonacci(3))
+    </script>
+</body>
+</html>

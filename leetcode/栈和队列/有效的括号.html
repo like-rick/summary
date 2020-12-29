@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 有效的括号
+        // https://leetcode-cn.com/problems/valid-parentheses/
+        // 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+        var isVaild = function (s) {
+            if (s.length == 0) return true;
+            let stack = [], i = 0, len = s.length, m = {'{': '}', '[': ']', '(':')'}
+            while (i < len) {
+                let cur = s.charAt(i);
+                if(cur == "(" || cur == "{" || cur == "[") {
+                    stack.push(cur);
+                } else {
+                    let prev = stack.pop();
+                    if (m[prev] != cur) {
+                        return false;
+                    }
+                }
+                i++;
+            }
+            return stack.length == 0;
+        }
+
+    </script>
+</body>
+</html>

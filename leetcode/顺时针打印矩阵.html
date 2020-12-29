@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+        // https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/
+
+        // 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+        // 输出：[1,2,3,6,9,8,7,4,5]
+        /**
+        * @param {number[][]} matrix
+        * @return {number[]}
+        */
+        var spiralOrder = function(matrix) {
+            let ans = [];
+            let rl = 0, rh = matrix.length - 1,
+                cl = 0, ch = matrix[0].length - 1;
+            while(true) {
+                for (let i = cl; i <= ch; i++) ans.push(matrix[rl][i]);
+                if (++rl > rh) break;
+                for (let i = rl; i <= rh; i++) ans.push(matrix[i][ch]);
+                if (--ch < cl) break;
+                for (let i = ch; i >= cl; i--) ans.push(matrix[rh][i]);
+                if (--rh < rl) break;
+                for (let i = rh; i >= rl; i--) ans.push(matrix[i][cl]);
+                if (++cl < ch) break;
+            }
+            return ans;
+        };
+        var spiralOrder = function (arr) {
+            let top = 0, left = 0, bottom =arr.length - 1, right = arr[0].length - 1, ans = [];
+            while (top <= bottom && left <= right) {
+                for (let i = left; i <= right; i++) ans.push(arr[top][i]);
+                top++;
+                for (let i = top; i <= bottom; i++) ans.push(arr[i][right]);
+                right--;
+                for (let i = right; i >= left && top <= bottom; i--) ans.push(arr[bottom][i]);
+                bottom--;
+                for (let i = bottom; i >= top && left <= right; i--) ans.push(arr[i][left]);
+                left++;
+            }
+            return ans;
+        }
+        console.log(spiralOrder([[1,2,3],[4,5,6],[7,8,9]]))
+    </script>
+</body>
+</html>

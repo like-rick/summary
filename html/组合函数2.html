@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 组合函数就是后一个函数返回值是前一个函数的参数
+        function compose(...args) {
+            return (x) => args.reduce((a, b) => {
+                return b(a);
+            }, x)
+        }
+        let compose1 = (...args) => (x) => args.reduce((a, b) => b(a), x);
+
+        function split(v){ return v}
+        function trim(v){return v}
+        const func = compose(split, trim);
+        func('test');
+    </script>
+</body>
+</html>
