@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则返回true,否则返回false。假设输入的数组的任意两个数字都互不相同。
+        // [4,8,6,12,16,14,10]
+        function VerifySquenceOfBST(sequence){
+            if(sequence.length == 0) return false;
+            return fn(sequence, 0, sequence.length - 1);
+            function fn(a, start, root) {
+                if (start >= root) return true;
+                let i = root, j = start;
+                while(i > start && a[i - 1] > a[root]) {
+                    i--;
+                }
+                while (j < i){
+                    if (a[j] >= a[root]) {
+                        return false;
+                    }
+                    j++;
+                }
+                if (j == root) return true;
+                return fn(a, start, i - 1) && fn(a, i, root - 1);
+            }
+        } 
+
+        console.log(VerifySquenceOfBST([1,2,5,10,6,9,4,3]))
+
+    </script>
+</body>
+</html>

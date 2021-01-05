@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <script>
+
+    // 输入一个字符串,按字典序打印出该字符串中字符的所有排列。
+    // 例如输入字符串abc,则按字典序打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+
+
+    function Permutation(str){
+        if (str.length == 0) return [];
+        let ans = [];
+        solve(str.split(""), []);
+        return ans;
+        function solve(s, store) {
+            if (store.length == str.length) {
+                ans.push(store);
+                return;
+            } else {
+                for (let i = 0; i < s.length; i++) {
+                    store.push(s[i]);
+                    let copy = [...s];
+                    copy.splice(i, 1);
+                    solve(copy, [...store]);
+                    store.pop();
+                }
+            }
+        }
+    }   
+    console.log(Permutation("abc"))
+    </script>
+</body>
+</html>

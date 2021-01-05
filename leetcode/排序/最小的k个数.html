@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&&tqId=11182&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4。
+        // 用堆排序
+
+        function GetLeastNumbers_Solution(input, k){
+            // write code here
+            let len = input.length,
+                ans = [];
+            // 开始调整，从叶子层的最左边的父节点开始调整
+            for (let i = Math.floor(len / 2) - 1; i >= 0; i--) {
+                heapfy(input, i);
+            }
+            for (let j = 0; j < len; j++) {
+                let temp = input.shift();
+                ans.push(temp);
+                heapfy(input, 0)
+            }
+            return ans;
+        }
+        console.log(GetLeastNumbers_Solution([4,5,1,6,2,7,3,8], 4))
+        function heapfy(arr, i) {
+            let left = 2 * i + 1,
+                right = 2 * i + 2,
+                idx = i,
+                len = arr.length;
+            if (left < len && arr[left] < arr[idx]) {
+                idx = left;
+            }
+            if (right < len && arr[right] < arr[idx]) {
+                idx = right;
+            }
+            if (idx != i) {
+                swap(arr, idx, i);
+                heapfy(arr, idx);
+            }
+        }
+
+        function swap(arr, i, j) {
+            let temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+    </script>
+</body>
+</html>

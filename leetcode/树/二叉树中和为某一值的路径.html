@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&&tqId=11177&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 输入一颗二叉树的根节点和一个整数，按字典序打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+
+        /* function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        } */
+        // [5,4,8,11,null,13,4,7,2,null,null,5,1]
+        // 22
+        function FindPath(root, expectNumber){
+            if (!root) return [];
+            let path = [];
+            solve(root, expectNumber, []);
+            return path;
+            function solve(root, target, p) {
+                if (root){
+                    p.push(root.val);
+                    target = target - root.val;
+                    if (target == 0 && !root.left && !root.right) {
+                        path.push([...p])
+                    } else {
+                        solve(root.left, target, [...p]);
+                        solve(root.right, target, [...p]);
+                    }
+                }
+            }
+        }
+        function TreeNode(val) {
+            this.val = val;
+            this.left = null;
+            this.right = null;
+        }
+        let head = new TreeNode(-2);
+        head.right = new TreeNode(-3);
+
+        console.log(FindPath(head, -5))
+
+    </script>
+</body>
+</html>
