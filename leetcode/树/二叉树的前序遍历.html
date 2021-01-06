@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+        // 二叉树前序遍历
+        /**
+         * Definition for a binary tree node.
+         * function TreeNode(val) {
+         *     this.val = val;
+         *     this.left = this.right = null;
+         * }
+         */
+        /**
+         * @param {TreeNode} root
+         * @return {number[]}
+         */
+        var preorderTraversal = function(root) {
+            if (!root) return [];
+            let stack = [], ans = [];
+            stack.push(root);
+            while (stack.length > 0) {
+                let cur = stack.pop();
+                ans.push(cur.val);
+                if (cur.right) {
+                    stack.push(cur.right)
+                }
+                if (cur.left) {
+                    stack.push(cur.left);
+                }
+            }
+            return ans;
+        };
+
+    </script>
+</body>
+</html>

@@ -7,7 +7,8 @@
 </head>
 <body>
     <script>
-
+    // 剑指offer
+    // https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&&tqId=11180&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
     // 输入一个字符串,按字典序打印出该字符串中字符的所有排列。
     // 例如输入字符串abc,则按字典序打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
 
@@ -32,7 +33,31 @@
             }
         }
     }   
-    console.log(Permutation("abc"))
+    // console.log(Permutation("abc"))
+
+    function Permutation1(str) {
+        str = str.split("");
+        if (str.length == 0) return [];
+        let ans = [];
+        solve(str, "");
+        return Array.from(new Set(ans));
+        function solve(str, store) {
+            if (str.length == 0) {
+                ans.push(store);
+                return;
+            } else {
+                for (let i = 0; i < str.length; i++) {
+                    store += str[i];
+                    let copy = [...str];
+                    copy.splice(i, 1)
+                    solve(copy, store);
+                    store = store.slice(0, -1);
+                }
+            }
+        }
+    }
+
+    console.log(Permutation1("abc"))
     </script>
 </body>
 </html>
