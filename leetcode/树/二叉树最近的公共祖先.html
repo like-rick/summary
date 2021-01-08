@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+        // 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+        /**
+         * Definition for a binary tree node.
+         * function TreeNode(val) {
+         *     this.val = val;
+         *     this.left = this.right = null;
+         * }
+         */
+        /**
+         * @param {TreeNode} root
+         * @param {TreeNode} p
+         * @param {TreeNode} q
+         * @return {TreeNode}
+         */
+        // 递归方式
+        var lowestCommonAncestor = function(root, p, q) {
+           if (!root) return root;
+           if (p == root || q == root) return root;
+           let left = lowestCommonAncestor(root.left, p, q);
+           let right = lowestCommonAncestor(root.right, p, q);
+           if (left != null && right != null) return root;
+           else if (left != null && right == null) return left;
+           else if (right != null && left == null) return right;
+           else return null;
+        }; 
+
+        // 查找路径方法
+        var lowestCommonAncestor = function(root, p, q) {
+            if (!root) return root;
+            let path1 = [], path2 = [];
+            getPath(root, p, path1);
+            getPath(root, q, path2);
+            console.log(path1);
+            console.log(path2);
+            let result = null, len = Math.min(path1.length, path2.length);
+            for (let i = 0; i < len; i++) {
+                if (path1[i] == path2[i]) {
+                    result = path1[i]
+                }
+            }
+            let p1 = [], q1 = [];
+            getPath(result, p, p1);
+            getPath(result, q, q1);
+            console.log(p1);
+            console.log(q1);
+            return p1.length + q1.length - 2;
+            // return result;
+            function getPath(root, node, path) {
+                if (!root) return;
+                path.push(root);
+                if (root == node) return;
+                if (path[path.length - 1] != node) {
+                    getPath(root.left, node, path)
+                }
+                if (path[path.length - 1] != node) {
+                    getPath(root.right, node, path);
+                }
+                if (path[path.length - 1] != node) {
+                    path.splice(-1, path.length - 1)
+                }
+            }
+        }; 
+
+    </script>
+</body>
+</html>

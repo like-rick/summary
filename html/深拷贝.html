@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // object.assign是浅拷贝，[...arr]也是浅拷贝
+        // JSON.parse(JSON.string(s))可以实现深拷贝
+        // 但是有以下局限：会忽略undefined， symbol， 
+        function deepClone(obj) {
+            function isObject(o) {
+                return (typeof o == 'object' || typeof o == 'function') && o != null
+            }
+            if (!isObject(obj)) return new Error('非对象');
+            let isArray = Array.isArray(obj);
+            let newObj = isArray ? [...obj] : {...obj};
+            Object.keys(obj).map(key => {
+                newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key];
+            })
+            return newObj;
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -19,7 +19,7 @@
 
         Child1.prototype = new Parent();
         var c1 = new Child1('xiaohei');
-        console.log(c1 instanceof Parent)
+        // console.log(c1 instanceof Parent)
         // 特点：
         // 实例可以继承的属性有：父类的构造函数的属性，父类的原型的属性，子类的构造函数，子类的原型的属性
         // 缺点：
@@ -47,6 +47,9 @@
             Parent.call(this, name);
         }
         Child3.prototype = new Parent();
+        Child3.prototype.constructor = Child3;
+        console.log(Child3.prototype.constructor)
+        console.log(new Child3() instanceof Parent)
         // 特点：
         // 1. 可以继承父类的原型属性，可传参
         // 2. 每个子类的实例引入的父类的实例属性都是私有的
@@ -57,11 +60,12 @@
         // 寄生继承
         // 使用object.create的继承
         function Child4(name) {
-            Parent.call(this);
+            Parent.call(this, name);
         }
         Child4.prototype = Object.create(Parent.prototype);
         // 弥补因为prototype重新指向出现的构造函数缺失问题
         Child4.prototype.constructor = Child4;
+        console.log(Child4.prototype.constructor)
 
     </script>
 </body>

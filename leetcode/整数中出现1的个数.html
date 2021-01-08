@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // 题解：https://leetcode-cn.com/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/solution/javadi-gui-by-xujunyi/
+        // https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&&tqId=11184&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 求出1~13的整数中1出现的次数,并算出100~1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。
+        // ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。
+
+        // fn(n) 表示 1~n数字中的1的个数
+        // 可以分成两种情况，讨论：
+        // 最高位数字和其他位数字
+        /*
+        例子如n=1234，high=1, pow=1000, last=234
+        可以将数字范围分成两部分1~999和1000~1234
+
+        1~999这个范围1的个数是f(pow-1)
+        1000~1234这个范围1的个数需要分为两部分：
+        千分位是1的个数：千分位为1的个数刚好就是234+1(last+1)，注意，这儿只看千分位，不看其他位
+        其他位是1的个数：即是234中出现1的个数，为f(last)
+        所以全部加起来是f(pow-1) + last + 1 + f(last);
+
+        例子如3234，high=3, pow=1000, last=234
+
+        可以将数字范围分成两部分1~999，1000~1999，2000~2999和3000~3234
+
+        1~999这个范围1的个数是f(pow-1)
+        1000~1999这个范围1的个数需要分为两部分：
+        千分位是1的个数：千分位为1的个数刚好就是pow，注意，这儿只看千分位，不看其他位
+        其他位是1的个数：即是999中出现1的个数，为f(pow-1)
+        2000~2999这个范围1的个数是f(pow-1)
+        3000~3234这个范围1的个数是f(last)
+        所以全部加起来是pow + high*f(pow-1) + f(last);
+        
+        */
+        function fn(n){
+            if (n <= 0) return 0;
+            n = n + '';
+            let high = Number(n.charAt(0))
+            let pow = Math.pow(10, n.length - 1);
+            let last = Number(n) - high * pow;
+            if (high == 1) {
+                return fn(last) + last + 1 + fn(pow - 1)
+            } else {
+                return high * fn(pow - 1) + fn(last) + pow;
+            }
+        }
+
+    </script>
+</body>
+</html>

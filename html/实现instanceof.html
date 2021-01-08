@@ -25,7 +25,16 @@
             }
         }
 
-
+        function myInstanceOf1(left, right) {
+            if (typeof left != 'object' || left == null) return false;
+            let rightProto = right.prototype,
+                leftProto = left.__Proto__;
+            while (true) {
+                if (leftProto == null) return false;
+                if (leftProto === rightProto) return true;
+                leftProto = leftProto.__proto__;
+            }
+        }
     </script>
 </body>
 </html>

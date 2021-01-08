@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/947f6eb80d944a84850b0538bf0ec3a5?tpId=13&&tqId=11179&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。
+        // 要求不能创建任何新的结点，只能调整树中结点指针的指向。
+
+
+        /* function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        } */
+        // 思路1： 先进行中序遍历得到一个递增的序列，在对递增的序列添加指针
+        function Convert(root){
+            if (!root) return root;
+            let queue = [];
+            dfs(root);
+            let head = queue.shift(),
+                cur = head,
+                pre = head;
+            while (queue.length > 0) {
+                cur = queue.shift();
+                pre.right = cur;
+                cur.left = pre;
+                pre = cur;
+            }
+
+            cur.right = head;
+            head.left = cur;
+            return head;
+            function dfs(root) {
+                if (!root) return;
+                dfs(root.left);
+                queue.push(root);
+                dfs(root.right);
+            }
+        }
+        
+        // 思路二：利用中序遍历递归
+        function Convert1(root) {
+            if (!root) return root;
+            let pre = null, head = null;
+            dfs(root);
+            head.left = pre;
+            pre.right = head;
+            return head;
+            function dfs(cur) {
+                if (!cur) return;
+                dfs(cur.left);
+                if (!pre) {
+                    head = cur;
+                } else {
+                    pre.right = cur;
+                }
+                cur.left = pre;
+                pre = cur;
+                dfs(cur.right);
+            }
+        }
+
+        function Convert2(root) {
+            if (!root) return root;
+            let stack = [], arr = [];
+            while (stack.length > 0 || root) {
+                while (root) {
+                    stack.push(root);
+                    root = root.left;
+                }
+                root = stack.pop();
+                arr.push(root);
+                root = root.right;
+            }
+            let head = arr.shift(),
+                cur = head,
+                pre = head;
+            while (arr.length > 0) {
+                cur = arr.shift();
+                pre.right = cur;
+                cur.left = pre;
+                pre = cur;
+            }
+
+            cur.right = head;
+            head.left = cur;
+            return head;
+        }
+    </script>
+</body>
+</html>
