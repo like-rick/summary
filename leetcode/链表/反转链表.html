@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-
+        //https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/comments/
         /**
  * Definition for singly-linked list.
  * function ListNode(val) {
@@ -19,6 +19,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+// 非递归的写法
 var reverseList = function(head) {
     if (!head) return head;
     var pre = null, cur = head;
@@ -30,6 +31,14 @@ var reverseList = function(head) {
     }
     return head;
 };
+// 递归的写法
+function reverseList(head) {
+    if (!head || !head.next) return head;
+    let node = reverseList(head.next);
+    head.next.next = head;
+    head.next = null;
+    return head;
+}
     </script>
 </body>
 </html>

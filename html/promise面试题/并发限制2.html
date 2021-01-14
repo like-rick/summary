@@ -36,7 +36,7 @@
                 return Promise.resolve();
             }
             const p = Promise.resolve().then(() => req(url[doing++]));
-            ret.push(p);
+            ans.push(p);
             const e = Promise.resolve().then(() => queue.splice(e, 1));
             queue.push(e);
             let r = Promise.resolve();

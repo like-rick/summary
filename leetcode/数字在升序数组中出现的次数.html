@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // 统计一个数字在升序数组中出现的次数。
+        // https://www.nowcoder.com/practice/70610bf967994b22bb1c26f9ae901fa2?tpId=13&&tqId=11190&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // [1,2,3,3,3,3,4,5],3
+        // 4
+        function fn(data, target) {
+            if (!data || data.length == 0) return 0;
+            let low = 0, high = data.length - 1, len = data.length, r = 0, l = 0;
+            while (low <= high) {
+                let mid = Math.floor((low + high) / 2);
+                if (data[mid] < target) {
+                    low = mid + 1;
+                } else if (mid + 1 < len && data[mid] == target && data[mid + 1] == target){
+                    low = mid + 1;
+                } else if (data[mid] > target) {
+                    high = mid - 1;
+                } else {
+                    r = mid;
+                    break;
+                }
+            }
+            low = 0, high = data.length - 1;
+            while (low <= high) {
+                let mid = Math.floor((low + high) / 2);
+                if (data[mid] < target) {
+                    low = mid + 1;
+                } else if (data[mid] > target) {
+                    high = mid - 1;
+                } else if (mid - 1 >= 0 && data[mid] == target && data[mid - 1] == target) {
+                    high = mid - 1;
+                } else {
+                    l = mid;
+                    break;
+                }
+            }
+            if (r == 0 && l == 0 && data[i] != target) {
+                return 0
+            } else {
+                return r - l + 1;
+            }
+        }
+
+        console.log(fn([2,2,3,4],2))
+
+    </script>
+</body>
+</html>

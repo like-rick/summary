@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 在不使用async/await的情况下，顺序执行一组异步代码函数，并输出最后的结果。
+        const A = new Promise()
+        const B = new Promise()
+        const C = new Promise()
+        const D = new Promise()
+
+        const compose = function (...args) {
+            return function (x) {
+                args.reduce((accumulator, curVal) => {
+                    return accumulator.then(curVal)
+                }, Promise.resolve(x))
+            }
+        }
+
+        const r = compose(A, B, C, D)
+
+        r(x).then(v => console.log(v));
+
+    </script>
+</body>
+</html>

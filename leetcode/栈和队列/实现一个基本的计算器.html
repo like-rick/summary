@@ -71,10 +71,41 @@
                 } else if (val == ")") {
                     res = res * stack.pop() + stack.pop();
                 }
+                i++;
             }
             return res;
         }
-        console.log(calculate1("1-(5)"))
+        // console.log(calculate1("1-(5)"))
+
+        function calculate2(s) {
+            let len = s.length, sign = 1, res = 0, i = 0, stack = [];
+            while (i < len) {
+                let cur = s.charAt(i);
+                if (isNumber(s, i)) {
+                    while (i + 1 < len && isNumber(s, i + 1)) {
+                        cur = Number(cur) * 10 + Number(s.charAt(i + 1));
+                        i++;
+                    }
+                    res = res + sign * cur;
+                } else if (cur == '+') {
+                    sign = 1;
+                } else if (cur == '-') {
+                    sign = -1;
+                } else if (cur == '(') {
+                    stack.push(sign);
+                    sign = 1;
+                    stack.push(res);
+                    res = 0;
+                } else if (cur == ')') {
+                    let preVal = stack.pop(),
+                        preSign = stack.pop();
+                    res = preVal + preSign * res;
+                }
+                i++
+            }
+            return res;
+        }
+        console.log(calculate2("2-1+2"))
     </script>
 </body>
 </html>

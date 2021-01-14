@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
+        // 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+        // 输入: 1->1->2
+        // 输出: 1->2
+        // 非递归的方法
+        function fn(head) {
+            if (!head || !head.next) return head;
+            let dummhyHead = new ListNode(-1);
+            dummhyHead.next = head;
+            let  cur = head;
+            while (cur) {
+                let pCur = cur;
+                if (cur.next && cur.next.val == cur.val) {
+                    while (cur.next && cur.next.val == cur.val) {
+                        cur = cur.next;
+                    }
+                    pCur.next = cur.next;
+                    cur = cur.next;
+                } else {
+                    cur = cur.next;
+                }
+            }
+            return dummhyHead.next;
+        }
+        // 递归的方法
+        function fn1(head) {
+            if (!head || !head.next) return head;
+            let cur = head;
+            if (cur.val == cur.next.val) {
+                while(cur.next && cur.next.val == cur.val) {
+                    cur = cur.next;
+                }
+                head.next = fn1(cur.next);
+            } else {
+                head.next = fn1(head.next);
+            }
+            return head;
+        }
+        // 另一种递归思路
+        function fn2(head) {
+            if (!head || !head.next) return head;
+            head.next = fn2(head.next);
+            if (head.val == head.next.val){
+                return head.next;
+            } else {
+                return head;
+            }
+        }
+    </script>
+</body>
+</html>

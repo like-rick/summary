@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 剑指offer
+        // https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&&tqId=11209&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 
+        // 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
+
+        // 递归方法
+        function fn(head) {
+            if (!head || !head.next) return head;
+            let next = head.next;
+            //如果是这种情况
+            //      1 --> 1 --> 1 --> 2 --> 3
+            //     head  next
+            //1.则需要移动next直到出现与当前head.value不相等的情况（含null）
+            //2.并且此时的head已经不能要了，因为已经head是重复的节点
+            //--------------else-------------
+            //      1 --> 2 --> 3
+            //     head  next
+            //3.如果没有出现1的情况，则递归返回的节点就作为head的子节点
+            if (next.val == head.val) {
+                while (next && next.val == head.val) next = next.next;
+                head = fn(next);
+            } else {
+                head.next = fn(head.next);
+            }
+            return head;
+        }
+
+        // 非递归方法
+        function fn1(head) {
+            if (!head || !head.next) return head;
+            let dummyHead = new ListNode(-1);
+            dummyHead.next = head;
+            let pre = dummyHead, cur = head;
+            while (cur) {
+                if (cur.next && cur.val == cur.next.val) {
+                    while (cur.next && cur.val == cur.next.val) {
+                        cur = cur.next;
+                    }
+                    pre.next = cur.next;
+                    cur = cur.next;
+                } else {
+                    pre.next = cur;
+                    pre = cur;
+                    cur = cur.next;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&&tqId=11195&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+
+        //输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
+        
+        function fn(arr, sum) {
+            let len = arr.length;
+            if (len <= 0 || sum <= arr[0]) return [];
+            let left = 0, right = len - 1, ans = [];
+            while (left < right) {
+                while (arr[right] > sum) {
+                    right--;
+                }
+                let target = sum - arr[right];
+                while (arr[left] < target) {
+                    left++;
+                }
+                if (arr[left] == target) {
+                    if (ans.length == 0) {
+                        ans = [arr[left], arr[right]]
+                    } else if ((arr[left] * arr[right] < (arr[0] * arr[1]))) {
+                        arr = [arr[left], arr[right]];
+                    }
+                    right--;
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+            return ans;
+        }
+        console.log(fn([1,2,4,7,11,15],15))
+    </script>
+</body>
+</html>

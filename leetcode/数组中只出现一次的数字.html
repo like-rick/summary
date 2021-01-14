@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/e02fdb54d7524710a7d664d082bb7811?tpId=13&&tqId=11193&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。
+
+        function fn(arr) {
+            arr.sort((a, b) => a - b);
+            let len = arr.length, ans = [];
+            for (let i = 0; i < arr.length; i++) {
+                if ((i - 1 >= 0 && arr[i - 1] == arr[i]) || (i + 1 < len && arr[i + 1] == arr[i])) {
+                    continue;
+                }
+                ans.push(arr[i]);
+            }
+            return ans;
+        }
+
+
+    </script>
+</body>
+</html>

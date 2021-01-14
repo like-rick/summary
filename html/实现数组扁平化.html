@@ -25,6 +25,16 @@
         }
         console.log(myFlat(arr, Infinity))
 
+        function myFlat1(arr, d) {
+            if (d <= 0) {
+                return [...arr];
+            } else {
+                return arr.reduce((accumulator, curVal) => {
+                    return accumulator.concat(Array.isArray(curVal) ? myFlat1(curVal, d - 1) : curVal)
+                }, [])
+            }
+        }
+
 
         //利用栈
         function myFlat1(arr) {

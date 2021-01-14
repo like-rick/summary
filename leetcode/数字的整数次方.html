@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&&tqId=11165&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        //  给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。保证base和exponent不同时为0
+
+        function Power(b, n){
+            if (n == 0) return 1;
+            if (n < 0) {
+                b = 1 / b;
+                n = - n;
+            }
+            return p(b, n);
+            function p(b, n) {
+                if (n == 0) return 1;
+                if (n == 1) return b;
+                if (n % 2 == 1) {
+                    return p(b, Math.floor(n / 2)) * p(b, Math.floor(n / 2)) * b;
+                } else {
+                    return p(b, Math.floor(n / 2)) * p(b, Math.floor(n / 2));
+                }
+            }
+        }
+        console.log(Power(2,4))
+    </script>
+</body>
+</html>

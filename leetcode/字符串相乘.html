@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 字符串相乘
+        // https://leetcode-cn.com/problems/multiply-strings/
+        // 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
+
+        var multiply = function (nums1, nums2) {
+            if (nums1 == '0' || nums2 == '0') return '0';
+            let n = nums1.length - 1, m = nums2.length - 1, ans = '';
+            for (let i = n; i >=0; i--) {
+                let addition = 0, rs = '';
+                for (let j = m; j >= 0; j--) {
+                    let result = nums1[i] * nums2[j] + addition;
+                    addition = parseInt(result / 10);
+                    rs += String(result % 10);
+                }
+                rs = rs.split("").reverse().join("")
+                if (addition != 0) {
+                    rs = String(addition) + rs;
+                }
+                for (let m = n; m > i; m--) {
+                    rs += '0';
+                }
+                console.log(rs)
+                ans = addString(ans, rs);
+            }
+            return ans.split("").join("");
+        }
+        function addString(nums1, nums2) {
+            let n = nums1.length - 1, m = nums2.length - 1, add = 0, ans = '';
+            while (n >= 0 || m >= 0 || add != 0) {
+                let x = n >= 0 ? Number(nums1[n]) : 0;
+                let y = m >= 0 ? Number(nums2[m]) : 0;
+                let rs = x + y + add;
+                add = parseInt(rs / 10);
+                rs = rs % 10;
+                ans += rs;
+                n--
+                m--
+            }
+            return ans.split("").reverse().join("");
+        }
+        console.log(multiply("123", "368"))
+    </script>
+</body>
+</html>

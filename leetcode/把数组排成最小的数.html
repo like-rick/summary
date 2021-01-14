@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&&tqId=11185&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 解析：https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/arrsort-by-xiao-bing-4-qrmc/
+        function PrintMinNumber(nums){
+            nums.sort(function (a, b) {
+                return Number(`${a}${b}`) - Number(`${b}${a}`)
+            })
+            return nums.join('')
+        }
+
+
+    </script>
+</body>
+</html>
