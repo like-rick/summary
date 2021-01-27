@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // 扑克牌顺子
+        // https://www.nowcoder.com/practice/762836f4d43d43ca9deb273b3de8e1f4?tpId=13&&tqId=11198&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 思路
+        // 如果能成为顺子要满足两个条件
+        // 1. 除了大小王之外，没有重复的数字
+        // 2. 数组中最大的数和最小的数的差值小于5
+
+    function IsContinuous(nums){
+        // write code here
+        nums.sort((a, b) => a - b);
+        let i = 0, len = nums.length, count = 0;
+        for (; i < len; i++) {
+            if (nums[i] == 0) count++;
+            else if (i + 1 < len && nums[i] == nums[i + 1]) return false;
+        }
+        return nums[len - 1] - nums[count] < 5
+    }
+
+
+    </script>
+</body>
+</html>

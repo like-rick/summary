@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 代理模式
+
+        // 代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问
+
+        // 应用：
+        // 惰性加载，比如图片懒加载 缓存代理，比如http304、Memoization，
+        // 不懂Memoization的可以移步我的JavaScript性能优化--算法和流程控制章节
+
+        // 优点:
+        // 分解本体职责--单一职责原则；解决本体暂时性无法处理一些请求；节约性能
+        // 缺点:
+        // 编码需要维护代理与本体的联系 编码需要保持代理和本体接口的一致性
+
+
+        // 举例：代理模式加载一张图片
+
+        let myImg = function () {
+            let img = document.createElement('img');
+            document.body.appendChild(img);
+            return {
+                setImg: function (src) {
+                    img.src = src;
+                }
+            }
+        }()
+
+        let proxyImg = function (url) {
+            // 先加载一张默认的图片
+            myImg.setImg('default.png');
+            // 创建一个新的图像对象
+            let img = new Image();
+            img.src = url;
+            img.onload = function () {
+                myImg.setImg(url);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

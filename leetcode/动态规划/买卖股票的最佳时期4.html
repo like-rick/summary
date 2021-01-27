@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/
+
+        // 给定一个整数数组 prices ，它的第 i 个元素 prices[i] 是一支给定的股票在第 i 天的价格。
+        // 设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。
+        // 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+        // 和股票问题3类似，但是这里限定了最多交易k次
+        // 需要转移的状态又3个， 天数，交易次数，股票的持有状态
+        // dp[i][j][m] 代表第i天，交易了j次，股票持有状态m下的最大收益
+        // m的取值 0 => 不持有  1 => 持有
+        // j的取值 0 => 交易0次 1 => 交易1次  2 => 交易两次  ...  j => 交易j次
+
+        // 定义买入为一次交易
+        /**
+         * @param {number} k
+         * @param {number[]} prices
+         * @return {number}
+         */
+        var maxProfit = function(k, prices) {
+            k = k + 1;
+            let len = prices.length;
+            if (len == 0) return 0;
+            let dp = new Array(len);
+            for (let i = 0; i < len; i++) {
+                dp[i] = new Array(k);
+                for (let j = 0; j < k; j++) {
+                    dp[i][j] = new Array(2);
+                }
+            }
+
+            for (let i = 0; i < k; i++) {
+                dp[0][i][0] = 0;
+                dp[0][i][1] = -prices[0];
+            }
+
+            for (let i = 1; i < len; i++) {
+                for (let j = 0; j < k; j++) {
+                    if (j == 0) {
+                        dp[i][j][0] = 0;
+                        dp[i][j][1] = -prices[i];
+                    } else {
+                        dp[i][j][0] = Math.max(dp[i - 1][j][0], dp[i - 1][j][1] + prices[i]);
+                        dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][0] - prices[i]);
+                    }
+                }
+            }
+            let max = 0;
+            for (let j = 0; j < k; j++) {
+                if (dp[len - 1][j][0] > max) {
+                    max = dp[len - 1][j][0];
+                }
+            }
+            return max;
+        };
+        maxProfit(2, [2,4,1])
+    </script>
+</body>
+</html>

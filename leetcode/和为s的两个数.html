@@ -29,8 +29,8 @@
                 if (arr[left] == target) {
                     if (ans.length == 0) {
                         ans = [arr[left], arr[right]]
-                    } else if ((arr[left] * arr[right] < (arr[0] * arr[1]))) {
-                        arr = [arr[left], arr[right]];
+                    } else if ((arr[left] * arr[right] > (ans[0] * ans[1]))) {
+                        ans = [arr[left], arr[right]];
                     }
                     right--;
                     left++;
@@ -39,6 +39,33 @@
                 }
             }
             return ans;
+        }
+       
+        function fn1(arr, sum) {
+            let len = arr.length;
+            if (len == 0 || sum <= arr[0]) return [];
+            let left = 0, right = arr.length - 1, ans = [];
+            while (left <= right) {
+                while (arr[right] > sum) {
+                    right--;
+                }
+                let target = sum - arr[right];
+                while (arr[left] < target) {
+                    left++;
+                }
+                if (arr[left] == target) {
+                    if (ans.length == 0) {
+                        ans = [arr[left], arr[right]];
+                    } else if (arr[left] * arr[right] < ans[0] * ans[1]){
+                        ans = [arr[left], arr[right]]
+                    }
+                    right--;
+                    left++;
+                } else {
+                    right--;
+                    left = 0;
+                }
+            }
         }
         console.log(fn([1,2,4,7,11,15],15))
     </script>

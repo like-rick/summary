@@ -9,7 +9,7 @@
     <script>
 
         //给定数组 nums = [-1, 0, 1, 2, -1, -4]，
-
+        // 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
         function fn(arr) {
             if (arr.length < 3) return [];
             // 从小到大排序
@@ -34,9 +34,35 @@
                     }
                 }
             }
-            return res;
+            return ans;
         }
 
+        function fn1(arr) {
+            let len = arr.length;
+            if (len < 3) return [];
+            arr.sort((a, b) => a - b);
+            let ans = [];
+            for (let i = 0; i < len; i++) {
+                if (arr[i] > 0) return ans;
+                let left = i + 1, right = len - 1;
+                if (i > 0 && arr[i] == arr[i - 1]) continue;
+                while (left < right) {
+                    let total = arr[i] + arr[left] + arr[right];
+                    if (total == 0) {
+                        ans.push([arr[i], arr[left], arr[right]]);
+                        while(left < right && arr[left] == arr[left + 1]) left++;
+                        while(left < right && arr[right] == arr[right - 1]) right--;
+                        left++;
+                        right++;
+                    } else if (total < 0) {
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+            return ans;
+        }
     </script>
 </body>
 </html>

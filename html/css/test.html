@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <style>
-    div{
+    .div1{
         position: absolute;
         width: 200px;
         height: 200px;
@@ -15,10 +15,20 @@
         top: 50%;
         transform: translate(-50%, -50%);
     }
+    .div2{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+        transition: background-color ease 3.3s
+    }
+    .div2:hover{
+        background-color: black;
+    }
 </style>
 <body>
-    <div>
+    <div className="div1">
         123
     </div>
+    <div class="div2"></div>
 </body>
 </html>

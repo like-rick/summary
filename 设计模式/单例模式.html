@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 单例模式：
+        // 保证一个类仅有一个实例，并提供一个访问它的全局访问点
+        // 优点：唯一实例，节约内存开销
+        // 缺点：违背单一职责原则，不适合容易变化的实例
+        // 应用：
+        // 个人觉得只要是那种使用相对频繁、功能强大、创建一次相对消耗性能多的都可以考虑使用单例模式，这里圈起来，要考！
+        // 别以为自己有个有点复杂的对象就想说使用单例模式，你可以先看下window对象有多少属性多少方法还有一点就是，
+        // 因为唯一的，而且创建消耗一点性能，我们可以在需要的时候去判断实例是否存在，不存在再创建，存在就直接使用，
+        // 这种叫做惰性单例，比如xhr
+        let createSingle = function () {
+            let div;
+            return function () {
+                if (!div) {
+                    div = document.createElement('div');
+                    div.innerHTML = '我是一个单例模式';
+                    div.style.display = 'none';
+                    document.body.append('div');
+                }
+                return div;
+            }
+        }();
+
+        createSingle();
+        createSingle();
+        createSingle();
+
+    </script>
+</body>
+</html>

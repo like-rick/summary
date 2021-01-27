@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        /*
+            thunk函数也是把多参数分解为单个参数传递，且最后一个参数只能接受回调函数作为参数
+
+            举例：
+            fs.readFile(pathName, callback)
+
+            let thunkReadFile = thunk(fn);
+            thunkReadFile(pathName)(callback);
+
+
+            let thunk = function (fn) {
+                return function (...args) {
+                    return function (callback) {
+                        return fn.call(this, args.concat(callback));
+                    }
+                }
+            }
+        
+        
+        
+        */
+
+
+    </script>
+</body>
+</html>

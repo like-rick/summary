@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 剑指offer
+
+        // https://www.nowcoder.com/practice/beb5aa231adc45b2a5dcc5b62c93f593?tpId=13&&tqId=11166&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+
+        // 新开两个数组A，B，遇到奇数的时候放入A，遇到偶数的时候放入B，最后把A，B链接起来
+        function fn(nums) {
+            let a = [], b = [], len = nums.length;
+            for (let i = 0; i < len; i++) {
+                if (nums[i] % 2 == 1) {
+                    a.push(nums[i]);
+                } else {
+                    b.push(nums[i]);
+                }
+            }
+            return a.concat(b);
+        }
+
+    </script>
+</body>
+</html>

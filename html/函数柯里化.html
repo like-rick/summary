@@ -28,6 +28,19 @@
         }
     }
 
+
+    function curry1(fn) {
+        return function curried(...args) {
+            if (args.length == fn.length) {
+                fn.call(this, ...args);
+            } else {
+                return function (...args1) {
+                    return curried.apply(this, args.concat(args1))
+                }
+            }
+        }
+    }
+
     let addCurry = curry(add);
     let addCurryOne = addCurry(1);
     console.log(addCurryOne(2));

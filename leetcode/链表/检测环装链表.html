@@ -33,6 +33,13 @@
             }
             return new ListNode(-1);
         };
+
+        /*
+             a + b = a + (b + c) * n
+            
+
+        
+        */
         // https://leetcode-cn.com/problems/linked-list-cycle-lcci/solution/kuai-man-zhi-zhen-zheng-ming-bi-jiao-yan-jin-by-ch/
         function detectCycle(head) {
             if (!head || !head.next) return head;

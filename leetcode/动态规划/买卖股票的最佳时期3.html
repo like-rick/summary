@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/
+        
+        // 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+        // 设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。
+        // 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+        // 这里限定了只能交易两次，所以需要转移的状态又3个， 天数，交易次数，股票的持有状态
+        // dp[i][j][k] 代表第i天，交易了j次，股票持有状态k下的最大收益
+        // k的取值 0 => 不持有  1 => 持有
+        // j的取值 0 => 交易0次 1 => 交易1次  2 => 交易两次
+
+        // 定义买入算交易一次
+        function maxProfit(prices) {
+            let len = prices.length;
+            let dp = new Array(len);
+            for (let i = 0; i < len; i++) {
+                dp[i] = new Array(3);
+                for (let j = 0; j < 3; j++) {
+                    dp[i][j] = new Array(2).fill(0);
+                }
+            }
+            // 初始化子问题
+            
+            for (let j = 0; j < 3; j++) {
+                dp[0][j][0] = 0; // 在第1天的时候，不管交易几次，不持有的状态最大收益都是0
+                dp[0][j][1] = -prices[0]; // 在第1天的时候，不管交易几次，持有的状态最大收益都是-price[0];
+            }
+            for (let i = 1; i < len; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (j == 0) {
+                        dp[i][j][0] = 0; // 在第i天的时候，交易0次，不持有的状态最大收益都是0
+                        dp[i][j][1] = -prices[i]; //在第i天的时候，交易0次，持有的状态最大收益都是-prices[i]
+                    } else {
+                        // 在第i天的时候，不持有的状态最大收益为：前一天不持有和前一天持有并且卖出的最大值
+                        dp[i][j][0] = Math.max(dp[i - 1][j][0], dp[i - 1][j][1] + prices[i]);
+                        // 在第i天的时候，持有的状态最大收益为：前一天持有和前一天不持有并且买入的最大值
+                        dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][0] - prices[i])
+                    }
+
+                }
+            }
+            return Math.max(dp[len - 1][0][0], dp[len - 1][1][0], dp[len - 1][2][0])
+        }
+
+
+    </script>
+</body>
+</html>

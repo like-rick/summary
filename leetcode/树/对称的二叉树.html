@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb?tpId=13&&tqId=11211&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+        // 请实现一个函数，用来判断一棵二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
+
+        // 输入 {8,6,6,5,7,7,5}
+        // 输出 true
+        // 递归思想:
+        // 判断是不是镜像二叉树，要判断根节点的左右子树是不是镜像子树，即left.left ?= right.right left.right ?= right.left
+        /* function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        } */
+        function isSymmetrical(root){
+            if (!root) return true;
+            if (!root.left && root.right) return false;
+            if (!root.right && root.left) return false;
+            return isSame(root.left, root.right);
+            function isSame(left, right) {
+                if (!left && !right) return true;
+                if (!left || !right) return false;
+                return left.val == right.val && isSame(left.left, right.right) && isSame(left.right, right.left);
+            }
+        }
+
+    </script>
+</body>
+</html>

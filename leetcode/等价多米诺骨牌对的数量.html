@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/
+
+        /*
+        
+        给你一个由一些多米诺骨牌组成的列表 dominoes。
+        如果其中某一张多米诺骨牌可以通过旋转 0 度或 180 度得到另一张多米诺骨牌，我们就认为这两张牌是等价的。
+        形式上，dominoes[i] = [a, b] 和 dominoes[j] = [c, d] 等价的前提是 a==c 且 b==d，或是 a==d 且 b==c。
+        在 0 <= i < j < dominoes.length 的前提下，找出满足 dominoes[i] 和 dominoes[j] 等价的骨牌对 (i, j) 的数量。
+
+        提示：
+            1 <= dominoes.length <= 40000
+            1 <= dominoes[i][j] <= 9
+        */
+
+        // 解题思路：
+        // 因为每一个元素的范围都在 1 - 9，所以两个元素组合起来范围在11到99之间
+        // [1,2]和[2,1]可以认为是一对多米诺骨牌，我们可以将他们组成一个二位数([1,2] => 21; [2, 1] => 21)并根据下标存在一个数组中
+        function fn(dominoes) {
+            let arr = new Array(100).fill(0); // 声明一个100个长度的数组
+            let res = 0;
+            for (let i = 0; i < dominoes.length; i++) {
+                let cur = dominoes[i];
+                let idx = cur[0] > cur[1] ? cur[0] * 10 + cur[1] : cur[1] * 10 + cur[0];
+                res += arr[idx];
+                arr[idx]++
+            }
+            return res;
+        }
+
+
+
+
+    </script>
+</body>
+</html>

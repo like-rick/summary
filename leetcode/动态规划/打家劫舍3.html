@@ -22,20 +22,45 @@
         * @param {TreeNode} root
         * @return {number}
         */
+        // 动态规划思想
+        // 1. 定义helper(r)为：以r为根节点，抢劫该节点和不抢劫该节点的返回的最大收益
+        // 2. 定义res是一个数组： res[0]代表不抢劫该节点的最大收益，res[1]代表抢劫该节点的最大收益
         var rob = function(root) {
-            return Math.max(...helper(root));
+            let res = helper(root);
+            return Math.max(res[0], res[1]);
         };
         function helper(root) {
             // dp[i] i => 0 表示不偷取当前节点的最大收益， i => 1 表示偷取当前节点的最大收益
             if (!root) return [0, 0];
+            // 对于以r.left为根的树，计算抢劫根节点(r.left)与不抢劫根节点可获得最大金额. left[0]则为不抢r.left可获得的最大金额,left[1]则为抢劫r.left可获得的最大金额  以下right[] 分析同理
             let left = helper(root.left);
             let right = helper(root.right);
             let dp = new Array(2).fill(0);
+            ////计算不抢劫当前根节点可获得的最大金额(那么其左右子树可以随便抢)
             dp[0] = Math.max(...left) + Math.max(...right);
+            ////计算若抢劫根节点可获得的最大金额(此时,其左右子树的根节点不能被抢)
             dp[1] = root.val + left[0] + right[0];
             return dp;
         }
 
+        // rob1表示的是抢劫以该节点为根的节点的最大收益
+        // 1. 递归思想
+        // 最大收益为：
+        // 抢劫该节点，抢劫该节点的左孩子节点的孩子节点，抢劫该节点的右孩子的孩子节点的和
+        // 与
+        // 抢劫该节点的左右孩子节点的和
+        // 的最大值
+        function rob1(root) {
+            if (!root) return 0;
+            let val = 0;
+            if (root.left) {
+                val += rob1(root.left.left) + rob1(root.left.right);
+            }
+            if (root.right) {
+                val += rob1(root.right.left) + rob1(root.right.right);
+            }
+            return Math.max(rob1(root.left) + rob1(root.right), val + root.val)
+        }
 
     </script>
 </body>

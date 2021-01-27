@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。
+        // 你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。
+        // 如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。
+
+        // https://leetcode-cn.com/problems/gas-station/
+        // 方法一：
+        // 按照题目的要求模拟一遍，汽车行驶的路径
+        function fn(gas, cost) {
+            let start = 0, len = gas.length, rest = 0, j = 0;
+            for (; start < len; start++) {
+                rest = gas[start] - cost[start];
+                if (rest >= 0) {
+                    for (j = (start + 1) % len; j != start; j = (j + 1) % len) {
+                        rest += (gas[j] - cost[j]);
+                        if (rest < 0) break;
+                    }
+                    if (j == start) return start;
+                }
+            }
+            return -1;
+        }
+
+        // 方法二:
+        // 首先判断gas数组的总和是否大于等于cost，如果是，则肯定能走完，否则，肯定走不完，返回-1
+        // 进行一次遍历，当rest剩余油量小于0是，代表第i个区域到第i+1个区域不能走通，则将start置为 i+1
+        // 因为此时肯定能走完，最后遍历完得到的start就是最后的结果
+        function fn1(gas, cost) {
+            let gasTotal = gas.reduce((accu, cur) => {
+                return accu + cur   
+            })
+            let costTotal = total.reduce((accu, cur) => {
+                return accu + cur   
+            })
+            if (costTotal > gasTotal) return -1;
+            let len = gas.length, rest = 0, start = 0;
+            for (let i = 0; i < len; i++) {
+                rest += (gas[i] - cost[i]);
+                if (rest < 0) {
+                    start = i + 1;
+                    rest = 0;
+                }
+            }
+            return start;
+        }
+    </script>
+</body>
+</html>

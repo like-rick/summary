@@ -34,18 +34,32 @@
             return Math.max(dp[len - 1][0], dp[len - 1][1])
         };
 
-        var rob1 = function (nums) {
-            // dp[i]代表偷到第i个房间最大的收益
-            let len = nums.length;
-            let dp = new Array(len).fill(0);
-            // 初始化子问题
-            dp[0] = nums[0];
-            dp[1] = Math.max(nums[0], nums[1]);
 
-            for (let j = 2; j < len; j++) {
-                dp[j] = Math.max(dp[j - 1], dp[j - 2] + nums[j]);
+        // 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，
+        // 如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
+        // 给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。
+
+        // 动态规划思想:
+        // 唯一的限制条件是不能偷两个相邻的房间, 对于没一个房间都有两个状态，偷和不偷
+        
+        // dp[i][j]表示到第i个房间j状态下的最大收益
+        // j的状态取值:  0 => 没偷  1 => 偷了
+        function rob(nums) {
+            let len = nums.length;
+            let dp = new Array(len);
+            for (let i = 0; i < len; i++) {
+                dp[i] = new Array(2).fill(0);
             }
-            return dp[len - 1];
+            // 初始化子问题
+            
+            dp[0][0] = 0;
+            dp[0][1] = nums[0];
+
+            for (let i = 1; i < len; i++) {
+                dp[i][0] = Math.max(dp[i - 1][1], dp[i - 1][0]);
+                dp[i][1] = dp[i - 1][0] + nums[i];
+            }
+            return Math.max(dp[len - 1][0, dp[len - 1][1]])
         }
 
         console.log(rob1([1,2,3,1]))

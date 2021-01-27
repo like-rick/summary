@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/ef068f602dde4d28aab2b210e859150a?tpId=13&&tqId=11215&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+
+        // 二叉搜索树的中序遍历就是从小到大的顺序，因此只要对二叉搜索树进行中序遍历，在找到第k个元素即可
+        function fn(root, k) {
+            if (!root) return null;
+            let stack = [], ans = [];
+            while (root || stack.length > 0) {
+                while (root) {
+                    stack.push(root);
+                    root = root.left;
+                }
+                root = stack.pop();
+                ans.push(root);
+                root = root.right;
+            }
+            if (k > ans.length) return null;
+            return ans[k - 1];
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -29,7 +29,6 @@
                 for (let m = n; m > i; m--) {
                     rs += '0';
                 }
-                console.log(rs)
                 ans = addString(ans, rs);
             }
             return ans.split("").join("");
@@ -48,7 +47,41 @@
             }
             return ans.split("").reverse().join("");
         }
+        var multiply1 = function (nums1, nums2) {
+            let n = nums1.length - 1, m = nums2.length - 1, ans = '';
+            for (let i = n; i >= 0; i--) {
+                let addition = 0, rs = '';
+                for (let j = m; j >= 0; j--) {
+                    let result = nums1[i] * nums2[j] + addition;
+                    addition = parseInt(result / 10);
+                    rs = String(result % 10) + rs;
+                }
+                if (addition != 0) {
+                    rs = String(addition) + rs;
+                }
+                for (let a = n; a > i; a--) {
+                    rs += '0';
+                }
+                ans = addString1(ans, rs);
+             }
+             return ans;
+        }
+        function addString1(nums1, nums2) {
+            let n = nums1.length - 1, m = nums2.length - 1, add = 0, ans = '';
+            while ((n >= 0) || (m >= 0) || (add != '0')) {
+                let x = n >= 0 ? Number(nums1[n]) : 0;
+                let y = m >= 0 ? Number(nums2[m]) : 0;
+                let rs = x + y + add;
+                add = parseInt(rs / 10);
+                rs = rs % 10;
+                ans = String(rs) + ans;
+                n--;
+                m--;
+            }
+            return ans
+        }
         console.log(multiply("123", "368"))
+        console.log(multiply1("123", "368"))
     </script>
 </body>
 </html>

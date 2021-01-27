@@ -33,7 +33,7 @@
             }
             return ans;
         };
-        var spiralOrder = function (arr) {
+        var spiralOrder1 = function (arr) {
             let top = 0, left = 0, bottom =arr.length - 1, right = arr[0].length - 1, ans = [];
             while (top <= bottom && left <= right) {
                 for (let i = left; i <= right; i++) ans.push(arr[top][i]);
@@ -48,6 +48,7 @@
             return ans;
         }
         console.log(spiralOrder([[1,2,3],[4,5,6],[7,8,9]]))
+        console.log(spiralOrder1([[1,2,3],[4,5,6],[7,8,9]]))
     </script>
 </body>
 </html>
