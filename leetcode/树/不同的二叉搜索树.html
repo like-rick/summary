@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/unique-binary-search-trees/
+        // 不同的二叉搜索树
+
+        // 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
+
+        // 解题思路：
+        // 思路1：动态规划
+        // 假设分别以1,2,3...n为根节点的二叉搜索树的数量为f(1),f(2)，
+        // G(n)表示n个节点的二叉搜索树的个数,则G(n) = f(1) + f(2) + f(3) + ... + f(n)
+        // f(1) = G(0) * G(n - 1)
+        // f(2) = G(1) * G(n - 2)
+        // f(i) = G(i - 1) * G(n - i)
+        // 所以 G(n) = G(0) * G(n - 1) + G(1) * G(n - 2) + ... + G(n - 1) * G(0)
+        // G(1) = G(0) * G(0)
+        // G(2) = G(0) * G(1) + G(1) * G(0)
+        /**
+         * @param {number} n
+         * @return {number}
+         */
+        var numTrees = function(n) {
+            if (!n) return 1;
+            let dp = new Array(n + 1).fill(0);
+            dp[0] = 1;
+            for (let i = 1; i < n + 1; i++) {
+                for (let j = 1; j <= i; j++) {
+                    dp[i] += dp[j - 1] * dp[i - j]
+                }
+            }
+            console.log(dp)
+            return dp[n];
+        };
+        console.log(numTrees(3))
+
+    </script>
+</body>
+</html>

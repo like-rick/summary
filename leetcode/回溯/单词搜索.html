@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/word-search/
+        /* 
+        给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+        单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
+        同一个单元格内的字母不允许被重复使用。
+
+        */
+
+        // 解题思路:
+        // 深度优先搜索
+        // 先从第一个元素开始搜索，深度优先搜索它的上下左右元素，因为每一个元素只能使用一次，所以需要记录有个visited访问数组，访问过的就不在访问
+        // 
+        /**
+         * @param {character[][]} board
+         * @param {string} word
+         * @return {boolean}
+         */
+        var exist = function(board, word) {
+            if (!board || !word) return false;
+            let row = board.length, col = board[0].length;
+            let visited = new Array(row);
+            let ans = false;
+            for (let i = 0; i < row; i++) {
+                visited[i] = new Array(col).fill(false);
+            }
+            for (let i = 0; i < row; i++) {
+                for (let j = 0; j < col; j++) {
+                    dfs(board, visited, word, 0, i, j);
+                }
+            }
+            return ans;
+            function dfs(board, visited, word, pos, i, j) {
+                // 如果当前元素访问超过界限
+                if (i < 0 || i >= row || j < 0 || j >= col) return;
+                // 如果已经找到结果
+                if (ans) return;
+                // 如果当前元素已经访问过
+                if (visited[i][j]) return;
+                // 如果当前元素不等于单词搜索中的元素
+                if (board[i][j] != word[pos]) return;
+                // 如果已经全部完成匹配
+                if (pos == word.length - 1) {
+                    ans = true;
+                    return;
+                }
+                // 标记当前元素已经被访问
+                visited[i][j] = true;
+                // 开始搜索当前元素的上下左右元素
+                dfs(board, visited, word, pos + 1, i - 1, j);
+                dfs(board, visited, word, pos + 1, i + 1, j);
+                dfs(board, visited, word, pos + 1, i, j - 1);
+                dfs(board, visited, word, pos + 1, i, j + 1);
+                // 回溯修改访问标记
+                visited[i][j] = false;
+            }
+        };
+
+        board =
+        [
+            ['A','B','C','E'],
+            ['S','F','C','S'],
+            ['A','D','E','E']
+        ]
+        console.log(exist(board, "ABCCED"))
+        console.log(exist(board, "SEE"))
+        console.log(exist(board, "ABCB"))
+    </script>
+</body>
+</html>

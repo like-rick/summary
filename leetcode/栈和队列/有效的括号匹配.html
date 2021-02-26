@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 有效的括号匹配
+        // https://leetcode-cn.com/problems/valid-parentheses 
+
+        //给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+        // 有效字符串需满足：
+        // 左括号必须用相同类型的右括号闭合。
+        // 左括号必须以正确的顺序闭合。
+
+        // 解题思路:
+        // 建立一个栈，碰见"(","[","{"就进栈，碰见')''}'']'就出栈，并且判断出栈的元素和当前的元素是否匹配
+        function isVaild(s) {
+            if (!s) return true;
+            let map = {
+                "(": ")",
+                "[": "]",
+                "{": "}",
+            }
+            let i = 0, stack = [];
+            while(i >= s.length) {
+                let cur = s[i];
+                if (cur == "(" || cur == "[" || cur == "{") {
+                    stack.push(cur)
+                } else {
+                    let top = stack.pop();
+                    if (top != map[cur]) return false;
+                }
+                i++;
+            }
+            return true;
+        }
+
+    </script>
+</body>
+</html>

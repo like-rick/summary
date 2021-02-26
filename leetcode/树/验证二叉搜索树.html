@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 验证二叉搜索树
+        // https://leetcode-cn.com/problems/validate-binary-search-tree/
+        // 定一个二叉树，判断其是否是一个有效的二叉搜索树。
+        // 假设一个二叉搜索树具有如下特征：
+        // 节点的左子树只包含小于当前节点的数。
+        // 节点的右子树只包含大于当前节点的数。
+        // 所有左子树和右子树自身必须也是二叉搜索树。
+
+        // 解题思路：
+        // 二叉搜索树的中序遍历是升序的，因此可以进行中序遍历，检查是否是中序来判断
+        /**
+         * Definition for a binary tree node.
+         * function TreeNode(val, left, right) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.left = (left===undefined ? null : left)
+         *     this.right = (right===undefined ? null : right)
+         * }
+         */
+        /**
+         * @param {TreeNode} root
+         * @return {boolean}
+         */
+        function fn(root) {
+            if (!root) return true;
+            let stack = [];
+            let pre = -Infinity;
+            while (root || stack.length > 0) {
+                while(root) {
+                    stack.push(root);
+                    root = root.left;
+                }
+                root = stack.pop();
+                if (root.val <= pre) return false;
+                pre = root.val;
+                root = root.right;
+            }
+            return true;
+        }
+
+
+    </script>
+</body>
+</html>

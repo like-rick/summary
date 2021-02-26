@@ -31,20 +31,28 @@
         }
 
         function trim(input) {
+            console.log('trim')
+            console.log(input)
             return typeof input === 'string' ? input.trim() : input;
         }
         function lowerCase(input){
+            console.log('lowerCase')
+            console.log(input)
             return typeof input === 'string' ? input.toLowerCase() : input;
         }
         function upperCase(input) {
+            console.log('upperCase')
             return input && typeof input === "string" ? input.toUpperCase() : input;
         }
         function split(input, delimiter = ",") {
-            return typeof input === "string" ? input.split(delimiter) : input;
+            console.log('split')
+            console.log(input)
+            return typeof input !== "string" ? input.split(delimiter) : input;
         }
 
         const composeFunc = compose(trim, lowerCase, split);
         const result = composeFunc("A, B, C");
+
     </script>
 </body>
 </html>

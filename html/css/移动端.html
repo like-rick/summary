@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <!-- 改变Safari状态栏样式，可选default/black/black-translucent，需在上述全屏模式下才有效 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://p5.ssl.qhimg.com/t01c3299c2c96b57f4b.png">
+    <!-- 添加页面启动占位图 -->
+    <link rel="apple-touch-startup-image" href="https://p5.ssl.qhimg.com/t01c3299c2c96b57f4b.png" media="(device-width: 375px)">
+    <title>Document</title>
+    <style>
+        body{
+            -webkit-overflow-scrolling: touch;
+        }
+        .div{
+            width: 200px;
+            height: 200px;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body>
+    <!-- 拨打电话 -->
+    <a href="tel:10086">拨打电话给10086小姐姐</a>
+    <!-- 发送短信 -->
+    <a href="sms:10086">发送短信给10086小姐姐</a>
+    <!-- 发送邮件 -->
+    <a href="mailto:young.joway@aliyun.com">发送邮件给JowayYoung</a>
+    <!-- 选择照片或拍摄照片 -->
+    <input type="file" accept="image/*">
+    <!-- 选择视频或拍摄视频 -->
+    <input type="file" accept="video/*">
+    <!-- 多选文件 -->
+    <input type="file" multiple>
+    18732249833
+    <!-- 纯数字带#和* -->
+    <input type="tel">
+    <!-- 纯数字 -->
+    <input type="number" pattern="\d*">
+    <!-- 打开微信 -->
+z    <a href="weixin://">打开微信</a>
+
+    <!-- 打开支付宝 -->
+    <a href="alipays://">打开支付宝</a>
+
+    <!-- 打开支付宝的扫一扫 -->
+    <a href="alipays://platformapi/startapp?saId=10000007">打开支付宝的扫一扫</a>
+
+    <!-- 打开支付宝的蚂蚁森林 -->
+    <a href="alipays://platformapi/startapp?appId=60000002">打开支付宝的蚂蚁森林</a>
+    <div class="div">
+        支持弹性滚动
+        在苹果系统的非body元素的滚动操作可能会造成卡顿，但是在安卓系统不会出现这种情况
+        通过声明overflow0scrolling: touch调用系统原生的滚动事件优化弹性滚动，增加页面的滚动流畅度
+        支持弹性滚动
+        在苹果系统的非body元素的滚动操作可能会造成卡顿，但是在安卓系统不会出现这种情况
+        通过声明overflow0scrolling: touch调用系统原生的滚动事件优化弹性滚动，增加页面的滚动流畅度
+        支持弹性滚动
+        在苹果系统的非body元素的滚动操作可能会造成卡顿，但是在安卓系统不会出现这种情况
+        通过声明overflow0scrolling: touch调用系统原生的滚动事件优化弹性滚动，增加页面的滚动流畅度
+        支持弹性滚动
+        在苹果系统的非body元素的滚动操作可能会造成卡顿，但是在安卓系统不会出现这种情况
+        通过声明overflow0scrolling: touch调用系统原生的滚动事件优化弹性滚动，增加页面的滚动流畅度
+        支持弹性滚动
+        在苹果系统的非body元素的滚动操作可能会造成卡顿，但是在安卓系统不会出现这种情况
+        通过声明overflow0scrolling: touch调用系统原生的滚动事件优化弹性滚动，增加页面的滚动流畅度
+        支持弹性滚动
+        在苹果系统的非body元素的滚动操作可能会造成卡顿，但是在安卓系统不会出现这种情况
+        通过声明overflow0scrolling: touch调用系统原生的滚动事件优化弹性滚动，增加页面的滚动流畅度
+    </div>
+
+    <script>
+
+        let div = document.getElementsByClassName('div');
+        setTimeout(() => {
+            div[0].scrollTop = '100px'
+            console.log(div[0].scrollTop)
+        }, 100);
+    </script>
+</body>
+</html>

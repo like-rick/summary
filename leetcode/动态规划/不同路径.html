@@ -8,13 +8,24 @@
 <body>
     <script>
 
+
+        //https://leetcode-cn.com/problems/unique-paths/
+        // 不同路径
+        // 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
+        // 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
+        // 问总共有多少条不同的路径？
+
+        // 解题思路：
+        // 因为机器人只能向下走，或者只能向右走，
+        // 所以到达(i,j)坐标的路径等于到达(i - 1, j)坐标的路径 + 到达(i, j - 1)坐标的路径的和
+        // 可得到状态转移方程 ： dp[i][j]表示到达坐标(i,j)的路径和
+        // dp[i][j] = dp[i - 1][j] + dp[i, j - 1]
+
         /**
          * @param {number} m
          * @param {number} n
          * @return {number}
          */
-
-
         var uniquePaths = function(m, n) {
             // dp表示从左上角走到(m, n)有多少条路径
             let dp = new Array(m);

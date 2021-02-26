@@ -13,9 +13,10 @@
          * @return {number}
          */
         var maxTurbulenceSize = function(arr) {
-            var dp = []; // 表示第i个元素的湍流数组的长度
+            if(arr.length < 2) return 1;
+                var dp = []; // 表示第i个元素的湍流数组的长度
             dp[0] = 1;
-            if (arr[0] != arr[i]) dp[1] = 2;
+            if (arr[0] != arr[1]) dp[1] = 2;
             else dp[1] = 1;
             for (var i = 2; i < arr.length; i++) {
                 if ((arr[i] > arr[i - 1] && arr[i - 1] < arr[i - 2]) || (arr[i] < arr[i - 1] && arr[i - 1] > arr[i - 2])) {
@@ -31,8 +32,34 @@
         };
         console.log(maxTurbulenceSize([9,4,2,10,7,8,8,1,9]));
 
+        // 湍流数组
+        // https://leetcode-cn.com/problems/longest-turbulent-subarray/comments/
+        // 解题思路：
+        // 思路一：动态规划
+        // dp[i]表示以i下标结尾的元素的最长湍流数组的长度
+        function fn(arr) {
+            let len = arr.length;
+            // dp[i]表示以i结尾的元素的湍流数组的最大长度
+            if (len < 2) return 1;
+            let dp = new Array(len).fill(1);
+            dp[0] = 1;
+            if (arr[0] != arr[1]) dp[1] = 2;
+            else dp[1] = 1;
+            for (let i = 2; i < len; i++) {
+                if ((arr[i] > arr[i - 1] && arr[i - 2] > arr[i - 1]) || (arr[i] < arr[i - 1] && arr[i - 1] > arr[i - 2])) {
+                    dp[i] = dp[i - 1] + 1;
+                } else if (arr[i] != arr[i - 1]) {
+                    dp[i] = 2;
+                }
+            }
+            return Math.max(...dp);
+        }
 
-
+        // 思路二：
+        // 
+        function fn1(arr) {
+            
+        }
     </script>
 </body>
 </html>

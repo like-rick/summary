@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://leetcode-cn.com/problems/word-break/
+        //  单词拆分
+        /*
+        给定一个非空字符串 s 和一个包含非空单词的列表 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
+        说明：
+        拆分时可以重复使用字典中的单词。
+        你可以假设字典中没有重复的单词。
+        */
+        // 解题思路：
+        // 回溯
+        // 从给定字符串s中的第一个字母开始划分，依次划分找到符合条件的划分，否则就回溯回去. 可能会超时
+
+        // 动态规划
+        // dp[i]表示字符数前i个字符组成的字符串能否被空格分隔成若干单词出现在字典中
+        // 状态转移：
+        // 任何字符串都能分为两块，s[0,j]和s[j, i-1]，遍历每一个分隔点，并且对每一块分别检查是否符合条件
+        // 对于前一块dp[j]可以由dp[j-1]得到，对于后一块只需要检查后一块是否在字典中即可
+        
+        /**
+         * @param {string} s
+         * @param {string[]} wordDict
+         * @return {boolean}
+         */
+        var wordBreak = function(s, wordDict) {
+            let len = wordDict.length;
+            if (!s || len == 0) return false;
+            let map = {};
+            wordDict.map(elem => {
+                map[elem] = 1;
+            })
+            let ans = false;
+            back(s);
+            return ans;
+            function back(s) {
+                let len = s.length;
+                if (!len) {
+                    ans = true;
+                    return;
+                } else {
+                    for (let i = 1; i <= len; i++) {
+                        let cur = s.slice(0, i);
+                        if (map.hasOwnProperty(cur)) {
+                            back(s.slice(i)); 
+                        }
+                    }
+                }
+            }
+        };  
+        var wordBreak1 = function (s, wordDict) {
+            let len = s.length;
+            if (!s || len == 0) return false;
+            let dp = new Array(len + 1).fill(false);
+            let wordSet = new Set(wordDict);
+            dp[0] = true;
+            // 字符串长度依次扩充伸展
+            for (let i = 1; i <= len; i++) {
+                // 依次增加字符串的分界点
+                for (let j = 0; j < i; j++) {
+                    if (dp[j] && wordSet.has(s.substr(j, i - j))) {
+                        dp[i] = true;
+                        break;
+                    }
+                }
+            }
+            return dp[len];
+        }
+        console.log(wordBreak1("leetcode", ["leet","code"]))
+    </script>
+</body>
+</html>

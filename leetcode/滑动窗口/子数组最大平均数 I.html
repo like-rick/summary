@@ -1,0 +1,44 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-04 13:58:16
+ * @LastEditTime: 2021-02-04 14:28:10
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /summary/leetcode/滑动窗口/子数组最大平均数 I.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        //给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
+        // 解题思路：
+        // 利用滑动窗口，维持一个长度为k的窗口，sum[i] 表示以i结尾的k个元素的和，则可以得到  i >= k - 1
+        // 可得递推表达式： sum[i] - sum[i - 1] = nums[i] - nums[i - k]
+        // sum[i] = sum[i - 1] + nums[i] - nums[i - k];
+        // 相当于在移动滑动窗口的时候，将前一个窗口的第一个元素移除，前一个窗口的最后一个元素的下一个元素移入
+        // 可以利用递推关系求得各个窗口的和，同时维护一个变量记录求各个窗口和的时候的最大值
+        function fn(nums, k) {
+            let len = nums.length;
+            if (!len || !k) return 0;
+            let sum = 0, i = 0, max = 0;
+            // 求得第一个窗口的和, 下标为k-1
+            for (; i < k; i++) {
+                sum += nums[i];
+            }
+            max = sum;
+            for (i = k; i < len; i++) {
+                sum = sum + nums[i] - nums[i - k];
+                max = Math.max(max, sum);
+            }
+            return max / k;
+        }
+
+    </script>
+</body>
+</html>

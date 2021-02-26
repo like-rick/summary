@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://leetcode-cn.com/problems/longest-repeating-character-replacement/
+
+        /**
+        给你一个仅由大写英文字母组成的字符串，你可以将任意位置上的字符替换成另外的字符，总共可最多替换 k 次。
+        在执行上述操作后，找到包含重复字母的最长子串的长度。
+        注意：字符串长度 和 k 不会超过 1e5。
+        */
+
+        // 解题思路：
+        // 首先当k等于0的时候，原题目为:求一个字符串中的最大重复的字母的子串的长度
+        // 第一个思路是用动态规划，第二种思路是滑动窗口
+        // 滑动窗口解题思路：
+        // 维护一个left，right指针，left从0开始，如果下一个元素和上一个元素相等，则扩展窗口right++
+        // 否则：left++;right++ 滑动窗口，直到right === length - 1的时候，所有的元素都遍历完，
+        // 则length - left为最终结果
+
+        // 当k不等于0的时候，同样也可以用滑动窗口解决问题
+        // 首先定义一个map数组用来记录当前滑动窗口中各个元素出现的次数
+        // 定义一个 historyMax用来表示滑动窗口历史中相同字母出现的最大次数
+        // 如果right - left + 1 (滑动窗口大小) > historyMax + k 说明当前的滑动窗口继续滑动
+        // 否则就继续扩张
+        function fn(s, k) {
+            let len = s.length;
+            if (len == 0) return 0;
+            let map = new Array(len).fill(0);
+            let left = 0, right = 0, numberA = 'A'.charCodeAt(), historyMax = 0;
+            for (; right < len; right++) {
+                let index = s[right].charCodeAt() - numberA;
+                map[index]++;
+                historyMax = Math.max(historyMax, map[index]);
+                if (right - left + 1 > historyMax + k) {
+                    // 滑动窗口
+                    map[s[left].charCodeAt() - numberA]--;
+                    left++;
+                }
+            }
+            return len - left;
+        }
+
+
+    </script>
+</body>
+</html>
