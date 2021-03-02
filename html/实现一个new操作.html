@@ -15,9 +15,17 @@
             obj.__proto__.constructor = P;
             // 3. 把第一个新创建的对象作为this对象传入进去
             let ans = P.apply(obj, Array.prototype.slice.call(arguments, 1));
-            if (ans && typeof ans === 'object' && typeof ans === 'function') {
+            if (ans && (typeof ans === 'object' || typeof ans === 'function')) {
                 return ans;
             }
+            return obj;
+        }
+
+        function myNew1(P) {
+            let obj = {};
+            obj.__proto__.constructor = P;
+            let ans = P.apply(obj, Array.prototype.silce.call(arguments, 1));
+            if (ans && (typeof ans === 'object' || typeof ans === 'function')) return ans;
             return obj;
         }
 

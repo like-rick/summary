@@ -30,7 +30,6 @@
             let fn = Symbol();
             thisArg[fn] = this;
             let result = thisArg[fn](...args);
-            console.log(result)
             delete thisArg[fn];
             return result;
         }
@@ -44,7 +43,15 @@
             delete thisArg[fn];
             return result;
         }
-        log.myCall(obj, 'nan')
+
+        Function.prototype.myCall1 = function () {
+            let [thisArg, ...args] = [...arguments];
+            thisArg['this'] = this;
+            let result = thisArg['this'](...args);
+            return result;
+        }
+        log.myCall1(obj, 'nv')
+        log.myCall(obj, 'nv')
 
     </script>
 </body>

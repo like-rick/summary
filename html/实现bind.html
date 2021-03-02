@@ -14,6 +14,13 @@
                 this.call(ctx,  ...args, ...newArgs,);
             }
         }
+
+        Function.prototype.myBind1 = function (ctx, ...args) {
+            return (...newArgs) => {
+                this.call(ctx, ...args, ...newArgs);
+            }
+        }
+
         let obj = {
             name: 'xiaohei',
             age: 18,

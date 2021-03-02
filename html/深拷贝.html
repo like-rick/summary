@@ -24,7 +24,20 @@
             return newObj;
         }
 
-
+        function deepClone1(obj) {
+            function isObject(o) {
+                return (typeof o === 'object' || typeof a === 'function') && o != null;
+            }
+            function isArray(arr) {
+                return Object.prototype.toString.call(arr) === '[object Array]';
+            }
+            if (!isObject(obj)) return new Error('非对象');
+            let newObj = isArray(obj) ? [...obj] : {...obj};
+            newObj.keys(obj).map(key => {
+                newObj[key] = isObject(obj[key]) ? deepClone1(obj[key]) : obj[key];
+            })
+            return newObj;
+        }
 
     </script>
 </body>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //  前 K 个高频元素
+        // 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
+        // https://leetcode-cn.com/problems/top-k-frequent-elements/
+
+        // 解题思路：
+        // 1. 新建一个次数数组映射，对次数数组映射进行排序，找出前k个大，时间复杂度，排序平均是 nlogn, 遍历找出前k个，时间复杂度n
+        // 2. 利用小根堆的思想，维护一个k个大小的小根堆，对次数数组遍历，
+        // 如果堆的个数少于k，就可以直接插入堆中
+        // 如果堆中的元素等于k，将当前元素和堆顶元素比较，
+        // 如果堆顶大，说明至少有k个数组出现的次数比当前值大，舍弃当前值，反之弹出堆顶，将当前元素放进去
+
+        /**
+         * @param {number[]} nums
+         * @param {number} k
+         * @return {number[]}
+         */
+        var topKFrequent = function(nums, k) {
+            // 思路二
+            // 建立次数映射
+            let map = new Map(), heap = [];
+            nums.map((num) => {
+                if(map.has(num)) map.set(num, map.get(num)+1)
+                else map.set(num, 1)
+            })
+            if (map.size <= k) {
+                return [...map.keys()];
+            }
+            // 开始建堆
+            let i = 0;
+            map.forEach((value, key) => {
+                if (i < k) {
+                    // 将前k个元素推入heap数组
+                    heap.push(key);
+                    // 将前k个元素推入heap数组中，开始建堆
+                    if (i == k - 1) {
+                        buildHeap(heap, map, k);
+                    };
+                    console.log(heap)
+                } else if(map.get(heap[0]) < value) {
+                    heap[0] = key;
+                    heapify(heap, map, k, 0);
+                }
+                i++;
+            })
+            return heap;
+            function buildHeap(heap, map, k) {
+                // 从最后一个非叶子节点开始建堆
+                for (let i = Math.floor(k / 2) - 1; i >= 0; i--) {
+                    heapify(heap, map, k, i);
+                }
+            }
+            function heapify(heap, map, k, i) {
+                let left = 2 * i + 1,
+                    right = 2 * i + 2, 
+                    idx = i;
+                if (left < k && map.get(heap[left]) < map.get(heap[idx])) {
+                    idx = left;
+                }
+                if (right < k && map.get(heap[right]) < map.get(heap[idx])) {
+                    idx = right;
+                }
+                if (idx != i) {
+                    swap(heap, i, idx);
+                    heapify(heap, map, k, idx);
+                }
+            }
+            function swap(arr, i, j) {
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        };
+
+    console.log(topKFrequent([5,-3,9,1,7,7,9,10,2,2,10,10,3,-1,3,7,-9,-1,3,3],3))
+
+    </script>
+</body>
+</html>

@@ -79,7 +79,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _test_txt__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test.txt */ \"./test.txt\");\n\n// const data = require('./test.txt')\nconsole.log(_test_txt__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n//# sourceURL=webpack:///./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _test_txt__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test.txt */ \"./test.txt\");\n\n// const data = require('./test.txt')\n// console.log(data.default);\nconsole.log(_test_txt__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
@@ -91,7 +91,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tes
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\"type\":\"Buffer\",\"data\":[230,136,145,230,152,175,228,184,128,228,184,170,230,181,139,232,175,149,231,154,132,116,120,116]});\n\n//# sourceURL=webpack:///./test.txt?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ('我是一个测试的txt');\n\n//# sourceURL=webpack:///./test.txt?");
 
 /***/ })
 

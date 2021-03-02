@@ -19,7 +19,11 @@
 
         Child1.prototype = new Parent();
         var c1 = new Child1('xiaohei');
-        // console.log(c1 instanceof Parent)
+        var c3 = new Child1('xiaoming');
+        c3.__proto__.age = '2'
+        console.log(c3.age)
+        console.log(c1.age)
+        console.log(c1 instanceof Parent)
         // 特点：
         // 实例可以继承的属性有：父类的构造函数的属性，父类的原型的属性，子类的构造函数，子类的原型的属性
         // 缺点：
@@ -32,7 +36,9 @@
             Parent.call(this, 'jer');
             this.age = 12;
         }
-        // let c2 = new Child2();
+        let c2 = new Child2();
+        console.log(c2 instanceof Parent)
+
         // 特点:
         // 1. 只继承了父类的构造函数，没有继承原型链上的属性
         // 2. 解决了原型链继承的缺点
