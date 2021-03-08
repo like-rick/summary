@@ -10,6 +10,9 @@
 
 
         /*
+            JS是传值调用，在JS中，thunk函数替换的不是表达式，而是多参数函数，将其替换成一个只接受回调函数
+            作为参数的单参数函数
+
             thunk函数也是把多参数分解为单个参数传递，且最后一个参数只能接受回调函数作为参数
 
             举例：
@@ -26,11 +29,30 @@
                     }
                 }
             }
-        
-        
-        
         */
 
+        // 生产环境下的thunk转换器
+        function thunkify(fn) {
+            return function () {
+                var args = new Array(arguments.length);
+                for (var i = 0; i < args.length; i++) {
+                    args[i] = arguments[i];
+                }
+                return function (done) {
+                    var called;
+                     args.push(function () {
+                         if(called) return;
+                         called = true;
+                         done.apply(null, arguments);
+                     });
+                     try {
+                         fn.apply(ctx, args)
+                     } catch (err) {
+                         done(err);
+                     }
+                }
+            }
+        }
 
     </script>
 </body>

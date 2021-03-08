@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 148. 排序链表
+        // 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+        // 你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
+        // https://leetcode-cn.com/problems/sort-list/
+
+        // 解题思路：利用快慢指针，找到链表的中点，用归并排序解决
+
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val, next) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.next = (next===undefined ? null : next)
+         * }
+         */
+        /**
+         * @param {ListNode} head
+         * @return {ListNode}
+         */
+         function ListNode(val, next) {
+              this.val = (val===undefined ? 0 : val)
+              this.next = (next===undefined ? null : next)
+        }
+        var sortList = function(head) {
+            if (!head) return head;
+            return mergeSort(head);
+            function mergeSort(head) {
+                if (!head.next) return head;
+                let p = head, q = head, pre = null;
+                while(q && q.next) {
+                    pre = p;
+                    p = p.next;
+                    q = q.next.next;
+                }
+                // 从中间断开链表
+                pre.next = null;
+                let l = mergeSort(head);
+                let r = mergeSort(p);
+                console.log(l);
+                console.log(r)
+                return merge(l, r);
+            }
+            function merge(l, r) {
+                let dummyHead = new ListNode(0);
+                let cur = dummyHead;
+                while(l && r) {
+                    if (l.val <= r.val) {
+                        cur.next = l;
+                        l = l.next;
+                    } else {
+                        cur.next = r;
+                        r = r.next;
+                    }
+                    cur = cur.next;
+                }
+                if (l) {
+                    cur.next = l;
+                }
+                if (r) {
+                    cur.next = r;
+                }
+                return dummyHead.next;
+            }
+        };
+
+        let a = new ListNode(4);
+        let b = new ListNode(2);
+        let c = new ListNode(1);
+        let d = new ListNode(3);
+        a.next = b;
+        b.next = c;
+        c.next = d;
+        console.log(sortList(a));
+    </script>
+</body>
+</html>

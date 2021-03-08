@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 字符串相加
+        // https://leetcode-cn.com/problems/add-strings/
+        // 解题思路
+        // 对两个字符串进行循环，从最后一位开始相加，要考虑进位的情况
+
+
+        var addStrings = function(num1, num2) {
+            if (!num1) return num2;
+            if (!num2) return num1;
+            let i = num1.length - 1, j = num2.length - 1, temp = 0, ans = '';
+            while (i >= 0 || j >= 0 || temp) {
+                let v1 = i < 0 ? 0 : Number(num1[i]);
+                let v2 = j < 0 ? 0 : Number(num2[j]);
+                let sum = v1 + v2 + temp;
+                temp = parseInt(sum / 10);
+                ans += sum % 10;
+                i--;
+                j--;
+            }
+            return ans.split("").reverse().join("")
+        };
+
+    </script>
+</body>
+</html>

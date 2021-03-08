@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+        // K个一组反转链表
+        // 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
+        // k 是一个正整数，它的值小于或等于链表的长度。
+        // 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+
+        // 解题思路：
+        // 1. 递归
+        // 步骤：
+        // 1、找到待翻转的k个节点（注意：若剩余数量小于 k 的话，则不需要反转，因此直接返回待翻转部分的头结点即可）。
+        // 2. 对其进行翻转。并返回翻转后的头结点（注意：翻转为左闭又开区间，所以本轮操作的尾结点其实就是下一轮操作的头结点）。
+        // 3. 对下一轮 k 个节点也进行翻转操作。
+        // 4. 将上一轮翻转后的尾结点指向下一轮翻转后的头节点，即将每一轮翻转的k的节点连接起来。
+
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val, next) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.next = (next===undefined ? null : next)
+         * }
+         */
+        /**
+         * @param {ListNode} head
+         * @param {number} k
+         * @return {ListNode}
+         */
+        var reverseKGroup = function(head, k) {
+            if (!head || !head.next) return head;
+            if (k == 1) return head;
+            let tail = head, index = 1;
+            // 找到第k个节点
+            while (index <= k) {
+                // 如果不够k个元素，则不用反转，直接返回
+                if (tail == null) return head;
+                tail = tail.next;
+                index++;
+            }   
+            // 开始反转
+            let newHead = reverse(head, tail);
+            head.next = reverseKGroup(tail, k);
+            return newHead;
+            // 左闭右开
+            function reverse(head, tail) {
+                let pre = null;
+                while (head !== tail) {
+                    let next = head.next;
+                    head.next = pre;
+                    pre = head;
+                    head = next;
+                }
+                return pre;
+            }
+        };
+
+    </script>
+</body>
+</html>

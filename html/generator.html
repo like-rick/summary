@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 同步自动执行generator
+        function step(val) {
+            console.log(val);
+            return val + 1;
+        }
+        function* gen() {
+            try {
+                let v1 = yield step(1);
+                let v2 = yield step(v1);
+                let v3 = yield step(v2);
+                let v4 = yield step(v3);
+                let v5 = yield step(v4);
+            } catch (error) {
+                
+            }
+        }
+        function scheduler(task) {
+            let taskObj = task.next(task.val);
+            if (!taskObj.done) {
+                task.val = taskObj.value;
+                scheduler(task);
+            }
+        }
+
+        scheduler(gen())
+
+       // Thunk函数的自动流程管理，yield函数必须通过thunk函数包装
+       function run(gen) {
+           var g = gen();
+           function next(err, data) {
+              var result = g.next(data);
+              if (result.done) return;
+              result.value(next);
+           }
+           next();
+       }
+
+       // 基于promise对象的自动执行，yield函数必须是一个promise对象
+       function runPromise(gen) {
+           var g = gen();
+           function next(err, data) {
+               var result = g.next(data);
+               if (result.done) return;
+               result.value.then(function (data) {
+                   next(data);
+               })
+           }
+           next();
+       }
+
+
+    </script>
+</body>
+</html>

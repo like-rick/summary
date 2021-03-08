@@ -19,8 +19,14 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+
+var fn = function (head) {
+    let pre = null;
+    let cur = head;
+    
+}
 // 非递归的写法
-var reverseList = function(head) {
+var reverseList1 = function(head) {
     if (!head) return head;
     var pre = null, cur = head;
     while(cur) {
@@ -29,7 +35,7 @@ var reverseList = function(head) {
         pre = cur;
         cur = next;
     }
-    return head;
+    return pre;
 };
 // 递归的写法
 function reverseList(head) {
@@ -37,8 +43,25 @@ function reverseList(head) {
     let node = reverseList(head.next);
     head.next.next = head;
     head.next = null;
-    return head;
+    return node;
 }
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+function buildLink(arr) {
+    var head = new ListNode(arr[0]), ans = head;
+    for (var i = 1; i < arr.length; i++) {
+        head.next = new ListNode(arr[i]);
+        head = head.next;
+    }
+    return ans;
+}
+var l1 = buildLink([1,2,4]);
+// console.log(l1)
+console.log(reverseList1(l1))
+
     </script>
 </body>
 </html>

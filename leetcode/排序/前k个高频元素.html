@@ -46,7 +46,6 @@
                     if (i == k - 1) {
                         buildHeap(heap, map, k);
                     };
-                    console.log(heap)
                 } else if(map.get(heap[0]) < value) {
                     heap[0] = key;
                     heapify(heap, map, k, 0);

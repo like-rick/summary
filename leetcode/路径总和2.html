@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 路径总和
+        // 给你二叉树的根节点 root 和一个整数目标和 targetSum ，
+        // 找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
+        // 叶子节点 是指没有子节点的节点。
+
+        // 解题思路：
+        // 深度优先搜索，加剪枝
+        var pathSum = function(root, targetSum) {
+            if (!root) return [];
+            let ans = [];
+            find(root, targetSum, []);
+            return ans;
+            function find(root, targetSum, path) {
+                if (root.left == null && root.right == null && targetSum == root.val) {
+                    ans.push([...path, root.val]);
+                    return;
+                } else {
+                    let leftVal = targetSum - root.val;
+                    if (root.right){
+                        find(root.right, leftVal, [...path, root.val])
+                    }
+                    if (root.left) {
+                        find(root.left, leftVal, [...path, root.val])
+                    }
+                }
+            }
+        };
+
+    </script>
+</body>
+</html>

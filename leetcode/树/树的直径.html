@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/diameter-of-binary-tree/
+        // 二叉树的直径
+        // 给定一棵二叉树，你需要计算它的直径长度。
+        // 一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
+
+        // 解题思路：
+        // 直径长度必定是一个叶子节点到另一个叶子节点的距离
+        // 问题可以转换为，左子树和右子树的最大深度和
+
+        /**
+         * Definition for a binary tree node.
+         * function TreeNode(val, left, right) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.left = (left===undefined ? null : left)
+         *     this.right = (right===undefined ? null : right)
+         * }
+         */
+        /**
+         * @param {TreeNode} root
+         * @return {number}
+         */
+        var diameterOfBinaryTree = function(root) {
+            let ans = 0;
+            dfs(root);
+            return ans;
+            function dfs(root) {
+                if (!root) return 0;
+                let left = dfs(root.left);
+                let right = dfs(root.right);
+                ans = Math.max(left + right, ans);
+                return Math.max(left, right) + 1;
+            }
+        };
+    </script>
+</body>
+</html>

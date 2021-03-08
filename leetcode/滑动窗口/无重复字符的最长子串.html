@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+        // 无重复字符的最长子串
+        // 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+
+        // 解题思路：
+        // 滑动窗口
+        // 初始化维护一个长度为1的滑动窗口，并不断遍历，当发现出现重复数字的时候，滑动窗口的将滑动窗口右移，
+        // 否则就增加滑动窗口的长度
+        // s.substr(0, 1) 
+        // 代表在字符串s中，以下标为0开始的元素往后数1个元素的子串
+        /**
+         * @param {string} s
+         * @return {number}
+         */
+        var lengthOfLongestSubstring = function(s) {
+            if (!s) return 0;
+            let left = 0, right = 0, len = s.length, ans = 0;
+            while (right < len) {
+                right++;
+                if (!isValid(s, left, right)) {
+                    right--;
+                    left++;
+                }
+                ans = Math.max(ans, right - left + 1);
+            }
+            return ans;
+        };
+        function isValid(s, left, right) {
+            if (left == right) return true;
+            let sub = new Set(s.substr(left, right - left + 1));
+            return sub.size == (right - left + 1)
+        }
+        console.log(lengthOfLongestSubstring("dvdf"))
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://www.cnblogs.com/EnSnail/p/9866130.html
+        class LazyMan {
+            constructor(name) {
+                this.tasks = [];
+                this.timer = null
+            }
+            run() {
+                if (this.timer) {
+                    clearTimeout(this.timer)
+                }
+                this.timer = setTimeout(async () => {
+                    for (let asyncFn of this.tasks) {
+                        await asyncFn();
+                    }
+                    this.timer = null;
+                    this.tasks.length = 0;
+                }, 0);
+                return this;
+            }
+            sayHi() {
+                this.tasks.push(async () => {console.log(`Hi, This is ${this.name}`)});
+                return this.run();
+            }
+            sleep(time) {
+                this.tasks.push(async () => {
+                    // setTimeout(() => {
+                    //     console.log(`Wait after ${time} s`);
+                    // }, time * 1000);
+                    console.log(`Wait after ${time} s`);
+                    this._timeWait();
+                })
+                return this.run();
+            }
+            eat(food) {
+                this.tasks.push(async () => {console.log(`Eat ${food}`)});
+                return this.run();
+            }
+            sleepFirst(time) {
+                this.tasks.unshift(async () => {
+                    // setTimeout(() => {
+                    //     console.log(`Wait after ${time} s`);
+                    // }, time * 1000);
+                    console.log(`Wait after ${time} s`);
+                    this._timeWait();
+                })
+                return this.run();
+            }
+            async _timeWait(second) {
+                await new Promise((resolve, reject) => {
+                    setTimeout(resolve, second * 1000);
+                })
+            }
+        }
+
+
+
+
+
+
+    </script>
+</body>
+</html>

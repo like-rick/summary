@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        // https://leetcode-cn.com/problems/trapping-rain-water/
+        // 接雨水
+        // 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+
+        // 解题思路：
+        // 按列计算接的雨水
+        // 遍历每一列，找到该列左边和右边最大的列(A, B)，并从A, B中找到较小的那个，因为能接雨水的数量取决于较短的板
+        // 此时会出现3中情况
+        // 较短的版的高度 > 当前列的高度  => 则能接到雨水的数量为 较短的版的高度 - 当前列的高度
+        // 较短的版的高度 <= 当前列的高度 => 则能接到雨水的数量为0
+
+        function trap(height) {
+            let sum = 0, len = height.length;
+            // 第一列和最后一列一定接不到雨水
+            for (let i = 1; i < len - 1; i++) {
+                // 找左边最长的列
+                let max_left = 0;
+                for (let j = i - 1; j >= 0; j--) {
+                    if (height[j] > max_left) {
+                        max_left = height[j];
+                    }
+                }
+                // 找右边最长的列
+                let max_right = 0;
+                for (let j = i + 1; j < len; j++) {
+                    if (height[j] > max_right) {
+                        max_right = height[j];
+                    }
+                }
+                // 找到两边相对较短的版
+                let min = Math.min(max_right, max_left);
+                if (min > height[i]) {
+                    sum += (min - height[i]);
+                }
+            }
+            return sum;
+        }
+
+    </script>
+</body>
+</html>

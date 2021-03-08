@@ -42,7 +42,7 @@
         */
         // https://leetcode-cn.com/problems/linked-list-cycle-lcci/solution/kuai-man-zhi-zhen-zheng-ming-bi-jiao-yan-jin-by-ch/
         function detectCycle(head) {
-            if (!head || !head.next) return head;
+            if (!head || !head.next) return null;
             let fast = head, slow = head;
             while (fast && fast.next) {
                 slow = slow.next;
