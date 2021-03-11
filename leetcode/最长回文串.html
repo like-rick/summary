@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 最长回文串
+        // https://leetcode-cn.com/problems/longest-palindrome/
+        // 给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
+        // 在构造过程中，请注意区分大小写。比如 "Aa" 不能当做一个回文字符串。
+
+        // 解题思路：
+        // 回文串是从前往后和从后往前，读起来都一样的字符串
+        // 比如： abba 或者 adcba
+        // 可以发现，最多只有一个出现次数为计数的字母
+        // 声明一个set类型，对字符串进行遍历，如果发现两个字母一样，count + 2，计算的是偶数个字符的个数
+        // 遍历完，看看set的size，如果大于等于1，count + 1
+        /**
+         * @param {string} s
+         * @return {number}
+         */
+        var longestPalindrome = function(s) {
+            let ans = new Set(), count = 0;
+            for (let v of s) {
+                if (ans.has(v)) {
+                    count += 2;
+                    ans.delete(v);
+                } else {
+                    ans.add(v);
+                }
+            }
+            return ans.size > 0 ? count + 1 : count;
+        };
+    </script>
+
+</body>
+</html>

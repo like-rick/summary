@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        圣杯布局和双飞翼布局解决的问题是一样的，就是两边固定宽，中间自适应的三栏布局，中间栏要在放在文档流前面以优先渲染。
+        圣杯布局和双飞翼布局解决问题的方案在前一半是相同的，也就是三栏全部float浮动，
+        但左右两栏加上负margin让其跟中间栏div并排，以形成三栏布局。
+        不同在于解决”中间栏div内容不被遮挡“问题的思路不一样：
+        圣杯布局，为了中间div内容不被遮挡，将中间div设置了左右padding-left和padding-right后，
+        将左右两个div用相对布局position: relative并分别配合right和left属性，以便左右两栏div移动后不遮挡中间div。
+    
+        双飞翼布局，为了中间div内容不被遮挡，直接在中间div内部创建子div用于放置内容，
+        在该子div里用margin-left和margin-right为左右两栏div留出位置。
+    -->
+    <!--
+        https://www.jianshu.com/p/81ef7e7094e8
+    -->
+    <style>
+        body{
+            min-width: 550px;
+        }
+        .container{
+            padding-left: 200px;
+            padding-right: 150px;
+        }
+        .container div{
+            float: left;
+        }
+        .left{
+            width: 200px;
+            background: green;
+            margin-left: -100%;
+            position: relative;
+            right: 200px;
+        }
+        .middle{
+            width: 100%;
+            background: grey;
+        }
+        .right{
+            width: 150px;
+            background: red;
+            margin-right: -150px;
+        }
+        .footer{
+            clear: both;
+        }
+    </style>
+    <div class="header"></div>
+    <div class="container">
+        <div class="middle">middle</div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>

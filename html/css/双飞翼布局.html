@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        https://www.jianshu.com/p/81ef7e7094e8
+        双飞翼布局的DOM结构与圣杯布局的区别是用container仅包裹住center，
+        另外将.column类从center移至container上。
+    -->
+    <style>
+        .container{
+            width: 100%;
+        }
+        .col{
+            float: left;
+        }
+        .center{
+            margin-left: 200px;
+            margin-right: 150px;
+            background: red;
+        }
+        .left{
+            width: 200px;
+            background: black;
+            margin-left: -100%;
+        }
+        .right{
+            width: 150px;
+            background: green;
+            margin-left: -150px;
+        }
+        .footer{
+            clear: both;
+        }
+    </style>
+    <div class="header">header</div>
+    <div class="container col">
+        <div class="center">center</div>
+    </div>
+    <div class="left col">left</div>
+    <div class="right col">right</div>
+    <div class="footer"></div>
+</body>
+</html>

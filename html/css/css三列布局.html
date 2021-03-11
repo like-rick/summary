@@ -6,24 +6,82 @@
     <title>Document</title>
 </head>
 <body>
+    <!--
+        <style>
+    
+            .div1{
+                width: 200px;
+                height: 200px;
+                float: left;
+                background: #000000;
+            }
+            .div2{
+                width: 200px;
+                height: 200px;
+                float: right;
+                background: red;
+    
+            }
+            .div3{
+                height: 200px;
+                background: grey;
+                margin: 0 200px;
+            }
+        </style>
+    -->
+    <!--
+        <style>
+            *{
+                margin: 0;
+            }
+            .container{
+                height: 200px;
+            }
+            .div1{
+                position: absolute;
+                /* top: 0; */
+                left: 0;
+                width: 200px;
+                background: red;
+                height: 200px;
+            }
+            .div2{
+                width: auto;
+                margin-left:200px;
+                margin-right: 200px;
+                background: gray;
+                height: 200px;
+    
+            }
+            .div3{
+                position: absolute;
+                /* top: 0; */
+                right: 0;
+                width: 200px;
+                background: green;
+                height: 200px;
+            }
+    
+        </style>
+    -->
     <style>
+        .container{
+            display: flex;
+        }
         .div1{
             width: 200px;
             height: 200px;
-            float: left;
-            background: #000000;
+            background: gray;
         }
         .div2{
-            width: 200px;
+            flex-grow: 1;
             height: 200px;
-            float: right;
-            background: red;
-
+            background: green;
         }
         .div3{
+            width: 200px;
             height: 200px;
-            background: grey;
-            margin: 0 200px;
+            background: red;
         }
     </style>
     <div class="container">

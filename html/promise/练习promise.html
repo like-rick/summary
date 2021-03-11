@@ -165,8 +165,8 @@
                         ans[idx] = value;
                     }
                 }
-                for (var i = 0; i < values.length; i++) {
-                    var curValue = values[i];
+                for (let i = 0; i < values.length; i++) {
+                    let curValue = values[i];
                     if (curValue && typeof curValue.then == 'function') {
                         curValue.then(v => {
                             processAns(v, i);
