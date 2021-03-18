@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // ES5/ES6 的继承除了写法以外还有什么区别？
+
+        // 1.
+        // 在ES6的class继承中，子类可以直接通过__proto__寻址到父类
+        /*
+            class Super {}
+            class Sub extends Super {}
+            const sub = new Sub();
+            Sub.__proto__ === Super;    // true
+        */
+        // 而通过ES5的方式，Sub.__proto__ === Function.prototypr
+        /*
+            function Super() {}
+            function Sub() {}
+            Sub.prototype = new Super();
+            Sub.prototype.constructor = Sub;
+            var sub = new Sub();
+            Sub.__proto__ === Function.prototype;  // true
+        */
+
+        // 2. ES5的继承和ES6的继承的子类生成的顺序不一样
+        // ES5的继承先  生成了子类的实例，然后在调用父类的构造函数修饰子类的实例
+        // ES6的继承先  生成了父类的实例，然后在调用子类的构造函数修饰父类的实例
+        // 这个差别使得ES6可以继承内置的对象
+        function MyES5Array() {
+            Array.call(this, arguments);
+        }
+        // it's useless
+        const arrayES5 = new MyES5Array(3); // arrayES5: MyES5Array {}
+        class MyES6Array extends Array {}
+        // it's ok
+        const arrayES6 = new MyES6Array(3); // arrayES6: MyES6Array(3) []
+    </script>
+</body>
+</html>

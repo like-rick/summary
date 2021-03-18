@@ -8,32 +8,48 @@
 <body>
     <script>
 
+        /*
+            function wrap(p) {
+                let obj = {};
+                let p1 = new Promise((resolve, reject) => {
+                    obj.resolve = resolve;
+                    obj.reject = reject;
+                })
+                obj.promise = Promise.race([p, p1]);
+                return obj;
+            }
 
-        function wrap(p) {
+            let p = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(123);
+                }, 2000);
+            })
+
+
+            let o = wrap(p);
+            o.promise.then(res => {
+                console.log(res);
+            })
+            setTimeout(() => {
+                o.resolve("Lanjie")
+            }, 1000);
+        */
+
+        function warp(p) {
             let obj = {};
-            let p1 = new Promise((resolve, reject) => {
+            let o = new Promise((resolve, reject) => {
                 obj.resolve = resolve;
                 obj.reject = reject;
-            })
-            obj.promise = Promise.race([p, p1]);
+            });
+            o.promise = Promise.race([p, o]);
             return obj;
         }
-
         let p = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(123);
-            }, 2000);
+                resolve();
+            }, 1000);
         })
-
-
-        let o = wrap(p);
-        o.promise.then(res => {
-            console.log(res);
-        })
-        setTimeout(() => {
-            o.resolve("Lanji")
-
-        }, 1000);
+        let o = warp(p);
         // 一旦开发者在1秒内主动调用obj.resolve，那么obj.promise方法就会被替换成我们自己的方法，而不会执行let promise的then方法，实现上比较巧妙。
     </script>
 </body>

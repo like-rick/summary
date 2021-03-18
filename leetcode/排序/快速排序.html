@@ -31,6 +31,25 @@
         quickSort(arr, 0, arr.length - 1);
         console.log(arr)
 
+        function sort(arr, low, high) {
+            if (low < high) {
+                let mid = findStandard1(arr, low, high);
+                sort(arr, low, mid);
+                sort(arr, mid + 1, high);
+            }
+        }
+
+        function findStandard1(arr, low, high) {
+            let temp = arr[low];
+            while (low < high) {
+                while (low < high && temp <= arr[high]) high--;
+                arr[low] = arr[high];
+                while(low < high && temp >= arr[low]) low++;
+                arr[high] = arr[low];
+            }
+            arr[low] = temp;
+            return low;
+        }
     </script>
 </body>
 </html>

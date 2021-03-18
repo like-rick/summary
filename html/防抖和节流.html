@@ -16,6 +16,7 @@
             return function (...args) {
                 if (timer) clearTimeout(timer);
                 if (immediate && !timer) {
+                    immediate = false;
                     fn.apply(this, args);
                     return;
                 }

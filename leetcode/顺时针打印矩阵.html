@@ -47,8 +47,21 @@
             }
             return ans;
         }
-        console.log(spiralOrder([[1,2,3],[4,5,6],[7,8,9]]))
-        console.log(spiralOrder1([[1,2,3],[4,5,6],[7,8,9]]))
+        var fn = function (arr) {
+            let top = 0, bottom = arr.length - 1, left = 0, right = arr[0].length - 1, ans = [];
+            while (top <= bottom && left <= right) {
+                for (let i = left; i <= right; i++) ans.push(arr[top][i]);
+                top++;
+                for (let i = top; i <= bottom; i++) ans.push(arr[i][right]);
+                right--;
+                for (let i = right; i >= left && top <= bottom; i--) ans.push(arr[bottom][i]);
+                bottom--;
+                for (let i = bottom; i >= top && left <= right; i--) ans.push(arr[i][left]);
+                left++;
+            }
+            return ans;
+        }
+        console.log(fn([[1,2,3],[4,5,6],[7,8,9]]))
     </script>
 </body>
 </html>

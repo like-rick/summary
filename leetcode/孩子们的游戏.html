@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 剑指offer
+        // https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&tqId=11199&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tab=answerKey
+        
+        // 解题思路：
+        // 用一个数组模拟报数的过程
+        function fn(n, m) {
+            let arr = new Array(n).fill(1), i = -1, step = 0, count = n;
+            // count代表现在还剩下的人数
+            while (count > 0) {
+                i++;
+                if (i >= n) i = 0;
+                if (arr[i] == -1) continue;
+                step++;
+                if (step == m) {
+                    arr[i] = -1;
+                    step = 0;
+                    count--;
+                }
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>

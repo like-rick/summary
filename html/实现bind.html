@@ -21,6 +21,8 @@
             }
         }
 
+        Function.prototype.myBind2 = (ctx, ...args) => (...newArgs) => this.call(ctx, ...args, ...newArgs);
+
         let obj = {
             name: 'xiaohei',
             age: 18,

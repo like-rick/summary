@@ -22,10 +22,10 @@
                 this.observers.push(observer);
             }
             remove(observer) {
-                    let idx = this.observers.findIndex(item => item === observer);
-                    if (idx > -1) {
-                        this.observers.splice(idx, 1);
-                    }
+                let idx = this.observers.findIndex(item => item === observer);
+                if (idx > -1) {
+                    this.observers.splice(idx, 1);
+                }
             }
             notify() {
                 this.observers.forEach(elem => {

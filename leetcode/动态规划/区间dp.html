@@ -81,7 +81,7 @@ function getLength(arr) {
     }
     for (let distance = 1; distance < len; distance++) {
         for (let i = 0; i + distance < len; i++) {
-            let j = i + distance ;
+            let j = i + distance;
             dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
             if (arr[i] == arr[j]) {
                 dp[i][j] = Math.max(dp[i][j], dp[i+1][j-1] + 2);
