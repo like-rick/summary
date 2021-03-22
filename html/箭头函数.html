@@ -17,8 +17,16 @@
         // 4. 不可以使用new命令，因为，没有自己的this，无法调用call，apply，没有prototype属性，而new命令在执行的时候
         // 需要将构造函数的prototype赋值给新的对象 __proto__
 
+        let obj = {
+            a: 1,
+            b: () => {
+                console.log(this.a)
+                console.log(this)
+            }
+        }
 
-
+        obj.b();
+    
     </script>
 </body>
 </html>

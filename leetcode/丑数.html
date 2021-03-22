@@ -14,11 +14,29 @@
         // 把只包含质因子2、3和5的数称作丑数（Ugly Number）。
         // 例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
 
-        function fn() {
-            
+        // 解题思路：
+        // 动态转移方程
+        // f(i) = Math.min(temp[a] * 2, temp[b] * 3, temp[c] * 5)
+        // 在数学上的意思，丑数，肯定是之前的一个丑数✖️ （2 || 3 || 5 ）只要找到比现在大的就行
+        // 开辟数组保存每个下标的丑数。
+        // 不断更新a b c 的下标，一旦等于了向前挪一个，就会变成大于了，然后再次看这三个数的大小
+        // 时间复杂度： 0n， 需要遍历一遍
+        // 空间复杂度： On 开辟数组空间来存储
+        function fn(n) {
+            if(n == 1) {return 1}
+            let a = 0, b = 0, c = 0
+            let temp = [1]
+            for(let i = 1; i < n; i++){
+                temp[i] = Math.min(temp[a] * 2, temp[b] * 3, temp[c] * 5)
+                temp[i] >= temp[a] * 2 ? a++ : 0
+                temp[i] >= temp[b] * 3 ? b++ : 0
+                temp[i] >= temp[c] * 5 ? c++ : 0
+            }
+            console.log(temp)
+            return temp[temp.length - 1]
         }
 
-
+        console.log(fn(10))
 
     </script>
 </body>

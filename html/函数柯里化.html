@@ -28,6 +28,21 @@
         }
     }
 
+    function curry(fn) {
+        return function curried(...args) {
+            if (fn.length === args.length) {
+                return fn.call(this, ...args);
+            } else {
+                return function (...args1) {
+                    return curried.call(this, args.concat(args1))
+                }
+            }
+        }
+    }
+
+    const a = curry(add);
+
+
 
     function curry1(fn) {
         return function curried(...args) {

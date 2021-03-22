@@ -9,11 +9,12 @@
 <body>
     <script>
 
+        // https://www.jianshu.com/p/fa161228f18f
         // ES5/ES6 的继承除了写法以外还有什么区别？
 
         // 1.
         // 在ES6的class继承中，子类可以直接通过__proto__寻址到父类
-        /*
+        /*  
             class Super {}
             class Sub extends Super {}
             const sub = new Sub();
@@ -41,6 +42,26 @@
         class MyES6Array extends Array {}
         // it's ok
         const arrayES6 = new MyES6Array(3); // arrayES6: MyES6Array(3) []
+
+        // 3. class的声明会提升，但不会初始化赋值，类似于let，const声明变量进入暂时性死区
+        {
+            console.log(Foo) //Cannot access 'Foo' before initialization
+            class Foo{
+
+            }
+        }
+
+        // 4. class声明内部会启用严格模式
+        {
+            class Foo{
+                constructor() {
+                    fol = 42; // fol is not defined;
+                }
+            }
+        }
+
+        // 5. class的所有方法（包括静态方法和实例方法）都是不可枚举的
+
     </script>
 </body>
-</html>
+</html>w

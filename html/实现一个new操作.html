@@ -29,6 +29,14 @@
             return obj;
         }
 
+        function new1(P) {
+            let obj = {};
+            obj.__proto__.constructor = P;
+            let ans = P.apply(obj, Array,prototype.slice.call(arguments, 1));
+            if (ans && (typeof ans === 'object' || typeof ans === 'function')) return ans;
+            return obj;
+        }
+
         function Cat(name, age) {
             this.name = name;
             this.age = age;
