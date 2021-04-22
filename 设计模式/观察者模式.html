@@ -14,42 +14,39 @@
 
 
         // 观察者模式
-        class Subject{
-            constructor() {
-                this.observers = [];
-            }
-            add(observer, type) {
-                this.observers.push(observer);
-            }
-            remove(observer) {
-                let idx = this.observers.findIndex(item => item === observer);
-                if (idx > -1) {
-                    this.observers.splice(idx, 1);
-                }
-            }
-            notify() {
-                this.observers.forEach(elem => {
-                    elem.update();
-                });
-            }
+class Subject{
+    constructor() {
+        this.observers = [];
+    }
+    add(observer, type) {
+        this.observers.push(observer);
+    }
+    remove(observer) {
+        let idx = this.observers.findIndex(item => item === observer);
+        if (idx > -1) {
+            this.observers.splice(idx, 1);
         }
-
-        class Subscribe{
-            constructor(name) {
-                this.name = name;
-            }
-            update() {
-                console.log(this.name)
-            }
-        }
-        const subject = new Subject();
-        const s1 = new Subscribe('lisi');
-        const s2 = new Subscribe('zhangsan');
-
-        subject.add(s1);
-        subject.add(s2)
-
-        subject.notify();
+    }
+    notify() {
+        this.observers.forEach(elem => {
+            elem.update();
+        });
+    }
+}
+class Subscribe{
+    constructor(name) {
+        this.name = name;
+    }
+    update() {
+        console.log(this.name)
+    }
+}
+const subject = new Subject();
+const s1 = new Subscribe('lisi');
+const s2 = new Subscribe('zhangsan');
+subject.add(s1);
+subject.add(s2)
+subject.notify();
 
     </script>
 </body>

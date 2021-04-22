@@ -1,0 +1,237 @@
+1. 如何手写一些promise
+2. 防抖函数和节流函数	
+// https://github.com/mqyqingfeng/Blog/issues/22
+// https://github.com/mqyqingfeng/Blog/issues/26
+3. css基线对齐方式     
+// https://zhuanlan.zhihu.com/p/29728703   
+4. 移动端适配方案 rem / vw
+5. vue和react中key的作用 不加key是就地复用，加key能更准确的定位组件，加key默认创建一个map结构，在对比元素节点的时候会更高效，不加key遍历对比的时候采用的是循环遍历，能更高效的定位节点。
+6. commonjs规范，AMD规范，CMD规范，UMD规范，ES6模块规范
+// https://segmentfault.com/a/1190000022599809
+7. document.addEventListener, removeEventListener 
+8. Ts declare的应用, namespace 和 module, namespace 用来逻辑分组（比如多个功能相关的函数）或者避免命名冲突，
+9. Thunk函数，(将函数的形参由值变成函数)一般适用于generator函数，yield函数会将函数执行权移除generator函数，利用thunk函数的回调函数能将函数执行的控制权交换给generator函数
+10. React事件系统，点击穿透，
+11. Redux中间件开发 超时上报中间件 middleware
+// https://www.redux.org.cn/docs/advanced/Middleware.html
+12. Tree-shaking 去掉项目中的没有用到的多余代码，减少项目的打包体积 
+// https://mp.weixin.qq.com/s/WncaUekzCWEVspuaNbv8Sw
+13. roolup和webpack的区别  
+// https://juejin.im/post/6844903473700405261
+14. Webpack,babel,babel-loader的区别 
+// https://juejin.im/post/6844904098303574023
+15. Redux-thunk和redux-saga的区别
+// https://zhuanlan.zhihu.com/p/126481634
+16. nodejs相关
+// http://nqdeng.github.io/7-days-nodejs/#7.1
+17. 性能优化与性能检测
+// https://www.smashingmagazine.com/2012/06/javascript-profiling-chrome-developer-tools/
+// https://developers.google.cn/web/fundamentals/performance/rendering/optimize-javascript-execution
+// http://www.stubbornella.org/content/2009/03/27/reflows-repaints-css-performance-making-your-javascript-slow/
+// https://developers.google.cn/web/tools/chrome-devtools/network/understanding-resource-timing
+// https://mp.weixin.qq.com/s/Hmkod3gYRR38B6Qdp1Iu6g
+18. Flux设计思想
+// https://medium.com/swlh/the-case-for-flux-379b7d1982c6
+19. 面试题相关
+// https://github.com/yygmind/blog/issues/43
+// https://juejin.im/post/6844903831789109256
+// https://github.com/yygmind/blog
+// https://github.com/Advanced-Frontend
+20. 书籍相关
+// https://github.com/pingan8787/Leo-JavaScript
+21. V8引擎相关
+// https://github.com/danbev/learning-v8#handle
+// https://v8.dev/blog
+22. React Hooks 和redux
+// https://zhuanlan.zhihu.com/p/66020264
+// https://juejin.im/post/6844904195238182925
+23. redux异步请求
+// https://zhuanlan.zhihu.com/p/126481634
+// https://github.com/lulujianglab/blog/issues/34
+24. 递归算法总结相关
+// https://wizardforcel.gitbooks.io/functional-light-js/content/ch9.html
+// http://www.ruanyifeng.com/blog/2015/04/tail-call.html
+// https://medium.com/openmindonline/js-monday-06-adopting-memory-safe-recursion-d26dcee409c9
+// https://javascript.info/recursion#recursive-traversals
+// https://codeburst.io/learn-and-understand-recursion-in-javascript-b588218e87ea
+25. 递归算法练习题
+https://leetcode-cn.com/problems/merge-two-binary-trees/ 深度优先遍历，广度优先遍历
+https://leetcode-cn.com/problems/permutations/submissions/ 全排列
+https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/
+https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+https://leetcode-cn.com/problems/swap-nodes-in-pairs/
+https://leetcode-cn.com/problems/balanced-binary-tree
+https://leetcode-cn.com/problems/symmetric-tree/
+https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
+https://leetcode-cn.com/problems/invert-binary-tree/
+https://leetcode-cn.com/problems/merge-two-binary-trees/
+https://leetcode-cn.com/problems/maximum-binary-tree/
+https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
+https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
+https://leetcode-cn.com/problems/pascals-triangle/
+https://leetcode-cn.com/problems/reverse-linked-list/
+https://leetcode-cn.com/problems/fibonacci-number/
+https://leetcode-cn.com/problems/climbing-stairs/
+https://leetcode-cn.com/problems/binary-tree-right-side-view/
+https://leetcode-cn.com/problems/keys-and-rooms/
+
+
+
+
+关于学习redux的总结：
+概念：action，reducer，store，
+高级：
+中间件异步action，
+
+middleware：redux-thunk， redux-soga，redux-promise,其他中间件，logger，appllyMiddleware实现（接受store的dispatch和getState函数作为命名参数）, (内部调用compose实现传入的参数（函数）从右到左链接)链式调用的实现（返回一个函数，函数被称为next，是下一个middleware的dispatch方法）
+
+可记忆的衍生数据reselect（防止多余的更新，和useEffert函数的第二个参数差不多），子应用隔离（多个reducer）
+reducer enhance概念：
+combineReducer用法（reducer函数中传一个reducer函数，返回一个reducer函数），compose用法（链接从右到左的函数参数，右边的参数函数的返回值是它左边函数的参数）
+
+配合react使用，react-redux
+Connect函数，绑定模板组件到视图组件（mapStateTOProps(useSelector), mapDispatchToProps(useDiispatch)）
+
+Store切片：类似于数据库（store扁平化和规范化），分离各个Store切片，不同的reducer处理不同的业务逻辑
+配合immutable.js的使用：
+combineReducers 只能处理普通的 JavaScript 对象，可以将immutable.js Map对象作为顶层state树的应用，
+深拷贝与浅拷贝
+
+
+
+
+做过的一些nb的项目总结：难点、挑战、收益、反思；能体现做事能力、解决问题能力等
+js继承实现、event loop、事件机制、设计模式-订阅/发布 观察者(能写代码啊)
+promise-thunk、一些polyfill如promise generator await等。
+vue vdom、domdiff算法、响应式原理-依赖收集等、
+vue3.0区别。 
+flex布局
+react redux原理以及dva/saga 生命周期 单向数据流 高阶组件封装 connect provider等
+新技术react fiber hooks 等原理
+es新特性，
+一些编程题：深拷贝、json.stringify json.parse lazyman 响应式数组 观察者模式
+TypeScript也是加分项
+
+nodejs
+koa原理 co原理 流操作
+
+跨平台：有接触过的就准备，不强求
+jsbridge原理、flutter vs. RN
+
+
+优化深更新
+在某些场景下，useReducer 会比 useState 更适用，例如 state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。useState不会整合state，使用object.assign整合，或者使用useReducer替代
+useState和useMemo的区别？？？
+useState使用object.is算法比较state的值，相同规则会跳过子组件和effect的更新，但是可能仍然会更新本组件
+如果在渲染本组建的时候，执行了大量的高开销的计算，使用useMemo优化？？？
+useEffect会在浏览器渲染完画面之后延迟执行，但是会保证在下一次渲染前执行，useLayoutEffect会立即执行。
+
+useContext的使用，及其使用memoization优化渲染高开销组件的三种方式
+
+useReducer更适合管理包含多子值的state对象，是useState的替代对象
+
+useContext和useReducer结合，优化深更新组件树
+
+useMemo 避免每次更新不相关的state的不必要的计算工作，默认会读取内存中的数据，只有在依赖列表发生改变的时候，才会
+重新计算，类似于vue的watch
+useCallback 缓存的是函数，使用场景，比如父组件传递给子组件一个更新函数，父组件的其他state更新的时候，子组件也很会更新，这时候缓存传递个子组件的函数，只有当依赖列表发生变化的时候，缓存函数才更新，这时候子组件才更新。
+useRef,返回一个可变的ref对象，但是不会主动通知ref变化，可以使用回调ref的方式，获取通知，这也是useCakkback得另一种应用场景。
+useImpertiveHandle可以让你在使用ref的时候自定义暴露给父组件的实例，ref转发
+
+
+
+
+一、 优化首屏加载时间 first paint / first contentful paint 
+https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint
+ 1.减少阻塞式css的加载，和第三方js库 show coverage 
+   将首屏渲染需要的css内联到页面中 https://github.com/kriasoft/isomorphic-style-loader/
+   减少页面重排，回流，
+   1-1:一般页面的渲染ui流程 js（阻塞ui） -> style（根据css规则计算，查找深度尽量减少）-> layout(布局，计算元素的大小，位置) ->paint (绘制，就是绘制元素的可见内容，如，图片的src，颜色，border等) -> composite（组合各个层的元素）https://developers.google.cn/web/fundamentals/performance/rendering
+   1-2. 哪些会触发强制回流/重排  https://gist.github.com/paulirish/5d52fb081b3570c81e3a
+   1-3. 直接作用在composite的属性  transform 和 opacity
+   1-4， 提升元素到新的层 （待研究）
+   
+
+
+ 优化图片尺寸，resize image，优化图片请求（错误的图片路径不在请求）
+ Text compression gzip压缩 // 服务端接口调整？？？
+ 2.减少页面加载是的js运行 optimize js execution
+ 3. 预加载组件 react.lazy suspense
+Memory-Efficient JavaScript
+二、 利用performance性能优化比较
+ 1. FPS指标，移动设备的CPU性能不如笔记本
+ 2. 分析性能瓶颈，rendering ？execute ? Loading ? Recalc style ? Reflow or layout ?
+ 3. 优化资源加载时间
+
+
+
+
+
+
+bfcache的问题：
+在移动端手机下，安卓版本大于4.4的某些手机下，会出现这种情况，bfcache的意思是，back-forward-cache，就是点击后退按钮的时候，页面返回上一级页面，
+上一级页面还是保持原来的状态，不会重新加载。这个时候就会出现一些逻辑上的问题，比如，我在首页某一个设备下面有一个带付款订单，点击这个待付款订单，要跳转到订单页查看详情，
+在订单页可以支付可以取消，比如我在订单页支付了，再点击返回按钮，此时的首页的那个设备还是会出现带付款订单，这个也就是bfcache。
+解决方法：
+查了一下mdn的文档说的
+一些Firefox不会缓存页面的情况，如下：
+页面绑定了 unload 或 beforeunload 事件；
+页面设置“cache-control: no-store”；
+站点是HTTPS且页面至少存在一个如下设置：
+“Cache-Control: no-cache”
+“Pragma: no-cache”
+“Expires: 0”或赋予“Expires”一个相对于“Date”的过去日期（除非“Cache-Control: max-age=”也定义了）
+当用户导航离开页面时，该页面没有完全加载，或因为其他原因等待网络（例如，XMLHttpRequest）；
+页面执行IndexedDB事务；
+一些做法是监听unload事件，在页面跳转的时候，会触发unload事件，这个方法并不能解决所有机型的问题。
+这个其实是webview一种性能优化的体现，在触发bfcache的时候回触发一个事件，pageonshow，其中里面有一个属性persisted为true，就代表这个页面是来自于bfcache，在页面刚刚加载的时候，onload事件之后，也会触发pageonshow时间的时机，这个时候persisted属性为false，这个可以判断，当persisted为true的时候，重新reload就可以了，并且在iOS下的webview实现的比较好
+在安卓下面的，某些手机的表现比较怪异，有些手机不管什么时机，persisted属性始终是false，所以并不能识别到这个页面是第一次加载还是，有一种实现方案就是在meta标签中加入
+“Cache-Control: no-cache”
+一. 项目优化内容
+0.DNS预获取优化  https://developer.mozilla.org/zh-CN/docs/Web/Performance/dns-prefetch
+浏览器对网站第一次的域名 DNS 解析查找流程依次为：浏览器缓存 >> 系统缓存 >> 路由器缓存 >> ISP DNS 缓存 >> 递归搜索。
+移动端环境下，DNS 请求带宽非常小，但延迟很高
+项目中的静态资源是放在CDN上面的，和主页面的域名不一样，在head标签中添加
+第一个方法：用 meta 信息来告知浏览器，当前页面要做 DNS 预解析：
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+第二个方法：在页面 header 中使用 link 标签来强制对 DNS 预解析:：
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link rel="dns-prefetch" href="https://example.com" />,
+并且dns-prefetch仅仅对跨域的DNS查找有效，而preconnet会和服务器建立连接，请求资源的时候包括DNS解析，TCP连接，
+如果是https还会TLS握手，将这两个结合起来可以进一步减少跨域请求静态资源的感知延迟。
+
+在对DNS解析的时候可以定量的计算DNS解析的时间，在performance api中提供了domainLookupStart和domainLookupEnd
+
+
+
+1. 从打包模块方面，分包策略：
+引入webpack-externals插件，这个插件将第三方库暴露为全局变量，其实就是事先在html模板文件中引用，每引用一个第三个库需要在webpack配置中的externals数组中做响应的映射，打包第三方库文件和一些工具类文件，webpack打包的时候会忽略这些文件，这样第一不会是打包文件过大，第二这些文件不经常变动，从CDN上获取，可以做一些缓存优化。
+还有一种方法是，利用splitChunks，splitChunks会默认的将node_modules中的模块打包到一个vender文件中，并且默认包的大小要大于30kb，另外我们也可以自定义cacheGroup的配置，自定义打包文件的内容，自定义分包策略，当然也要权衡包的大小和包的请求数量的关系，并不是包越小越好。这里我只分了3类，一类是React，ReactDOM这些公共的第三方类库，另一个是utils，一些工具类，还有一类就是default默认的，业务逻辑的包。
+2.懒加载方式减少首屏时间
+React.lazy配合suspense，或者用webpack中的require.ensure， 将首屏中没有用到的包，提取出来，等待需要的时候在加载。在项目中，需要显示用户套餐的服务时间，但是需要用户先选择设备，在选择套餐才显示服务时间，这样的操作在首屏是不会出现的，所以对显示服务时间相关类库和逻辑，做了懒加载。只有在有操作的时候才去请求。这里面还有一个比较体验不好的地方，就是懒加载资源也是需要有一个是时间差的，就是在用户点击套餐的时候，会有一个时间间隔，体验不是很好，这个其实webpack的配置会帮我们解决这个问题，在我们动态引入import一个文件的时候，可以在注释里面配置webpackChunkName为自定义的名字，和webpackPrefetch为true，配置这个属性后，webpack会在打包后的html文件中，加入<link rel="prefetch" as="script" href="你的chunkname">，link标签中的prefetch属性其实就是，预加载的意思，这个我查过mdn文档，说预加载的时机是在浏览器空闲的时候加载的，会在整个文档将要onload的时候去prefetch这个文件，也不会影响我们的首屏渲染。
+3. Tree shaking
+1. Commonjs规范不支持tree shaking，因为commonjs是动态导入，webpack在分析导入的包的时候，无法判断是否使用了这个包，
+2. 功能函数的副作用，副作用的意思就是某个方法或者文件执行了之后，还会对全局其他内容产生影响的代码。例如 polyfill 在各类prototype 加入方法，就是副作用的典型。比如在对Date类处理的时候为了方便我们在prototype上自定义一个格式处理的函数，这种就是副作用，在进行分析的时候，webpack不能判断这一段代码是使用了还是没使用，所以都会打进包里。有两种解决方法，第一个就是不要将方法挂载到原型链中，单独提取出来，做更细粒度的区分，不要放在一个类里或者一个对象里，第二种就是在webpack中UglifyJSPlugin中的compress配置pure_function，明确的指出我们的那个方法没有副作用，这样UglifyJS在分析的时候也会删除相关代码，但是局限性比较大，需要列举。
+4. Css规范和渲染流程的优化
+// 规范css书写方式，我这里采用的是BEM的方法，减少层级的套用，提高css规则的查找效率，比如最多使用2层套用 （https://www.zhihu.com/question/19886806）
+2. 尽可能的减少单个帧的渲染流程。合理的对页面元素进行分层，（比如:我分为了4层，基本的占据空间的元素的一层，错误提示，实时滚动的购买信息，和其他）
+帧的渲染流程都包括，js的运行（js的执行是阻塞ui渲染的，频繁执行一些代码也会过长的占用每帧渲染的时间），样式计算（根据匹配选择器查找每一个元素应用的css规则），元素的布局（重排，布局，大小），元素的绘制（重绘，颜色，背景），合成（由于页面的各部分可能被绘制到多个层上，因此它们需要按正确顺序绘制到屏幕上，才能正确地渲染页面）每个环节都有可能引起卡顿，所以要尽可能减少通过的管道步骤。
+3. 关于低版本手机动画卡顿的问题的解决方案：flip思想，f代表的是first，就是元素开始的位置，l代表的是last，就是元素在动画结束的位置，i代表的是invert，对动画开始的位置和结束的位置做一个反转，p：代表play，就是动画开始执行的时机
+4. 合理利用css继承的属性，比如color，font-size， font-weight这种
+https://github.com/Tencent/tmt-workflow/wiki/%E2%92%9B-[%E8%A7%84%E8%8C%83]--CSS-BEM-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83
+5.业务辑和优化组件深更新方面
+功能函数的应用，防抖节流函数等公共逻辑业务组件的开发和使用：
+对整个项目的业务请求接口流程分析，做出适当的流程图，整理开发文档，
+组件深更新优化方面：相比于之前的HOC，这次的重构选择了复用性更强的FC + Hooks
+利用useMemo进行组件依赖分析，useMemo返回的是一个React对象，去除非依赖状态改变对组件的影响，避免组件的重新渲染，
+useReducer + useContext对组件深更新优化，跨层级传递参数，对于全局影响的参数，直接挂载到context上面，比如，在项目中，有国际化的需求，需要判断当前页面的语言环境，显示不同的币种信息，这种就是全局都会受到影响的。另一个就是useReducer对深层组件更新的影响，如果是一些状态比较少的组件，我们可以直接使用useState，但是对于一个组件如果状态数量比较多，在对子组件传值更新的时候，我们可以将状态都绑定带reducer上面，方便对组件的状态管理，同时useReducer返回的dispatch函数是一个引用，将他传递给子组件并不不会是子组件更新，而在子组件我们又可以根据传进来的引用对父组件的reducer上挂载的状态变更。
+
+
+
+
+
+
+
+
+
+

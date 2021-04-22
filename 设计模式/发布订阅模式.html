@@ -12,52 +12,50 @@
         // 观察者模式和发布订阅者模式的区别
         // https://zhuanlan.zhihu.com/p/51357583
 
-
-        // 发布订阅者模式
-        let pubDot = {
-            list: {},
-            subscribe: function(key, fn) {
-                if (!this.list[key]) this.list[key] = [];
-                this.list[key].push(fn);
-            },
-            unSubscribe: function (key, fn){
-                let list = this.list[key];
-                if (!list) return false;
-                if (!fn) {
-                    list && (list.length == 0)
-                } else {
-                    list.forEach((elem, idx) => {
-                        if (elem === fn) {
-                            list.splice(idx, 1);
-                        }
-                    });
+// 发布订阅者模式
+let pubDot = {
+    // 申请一块存储数据的空间
+    list: {},
+    subscribe: (key, fn) => {
+        // 订阅事件
+        if (!this.list[key]) this.list[key] = [];
+        this.list[key].push(fn);
+    },
+    unSubscribe: (key, fn) => {
+        // 取消订阅事件
+        let list = this.list[key];
+        if (!list) return false;
+        if (!fn) {
+            list && (list.length == 0)
+        } else {
+            list.forEach((elem, idx) => {
+                if (elem === fn) {
+                    list.splice(idx, 1);
                 }
-            },
-            publish: function (key, ...args){
-                for (let fn of this.list[key]) {
-                    fn.call(this, ...args);
-                }
-            }
+            });
         }
-
-        pubDot.subscribe('onwork', time => {
-            console.log(`上班了：${time}`)
-        })
-
-        pubDot.subscribe('offwork', time => {
-            console.log(`下班了：${time}`)
-        })
-
-        pubDot.subscribe('launch', time => {
-            console.log(`吃饭了${time}`)
-        })
-
+    },
+    publish: (key, ...args) => {
         // 发布
-        pubDot.publish('offwork', '18:00:00');
-        pubDot.publish('launch', '12:00:00');
-
-        // 取消订阅
-        pubDot.unSubscribe('onwork');
+        for (let fn of this.list[key]) {
+            fn.call(this, ...args);
+        }
+    }
+}
+pubDot.subscribe('onwork', time => {
+    console.log(`上班了：${time}`)
+})
+pubDot.subscribe('offwork', time => {
+    console.log(`下班了：${time}`)
+})
+pubDot.subscribe('launch', time => {
+    console.log(`吃饭了${time}`)
+})
+// 发布
+pubDot.publish('offwork', '18:00:00');
+pubDot.publish('launch', '12:00:00');
+// 取消订阅
+pubDot.unSubscribe('onwork');
 
     </script>
 </body>

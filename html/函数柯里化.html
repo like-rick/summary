@@ -12,9 +12,25 @@
     // 把一个带有多个参数的函数转换成一些列的嵌套函数
     // 实现
     // 返回一个新函数，这个新函数期望传入下一个参数，当接收到足够的参数后，会自动执行原函数
-    function add(x, y){
+    function add(x, y, z){
         return x + y;
     }
+    
+    let otherAdd = myCurry(add);
+    otherAdd(1)(2)(3)
+
+    function myCurry(fn) {
+        return function curried(...args) {
+            if (args.length >= fn.length) {
+                return fn.call(this, ...args)
+            } else {
+                return function (...args1) {
+                    return curried(args.concat(args1))
+                }
+            }
+        }
+    }
+
 
     function curry(fn) {
         return function curried(...args){
